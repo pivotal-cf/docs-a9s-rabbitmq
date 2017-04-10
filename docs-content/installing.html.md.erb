@@ -12,7 +12,7 @@ owner: Partners
      }
 </style>
 
-This topic describes how to install and configure a9s RabbitMQ for PCF.
+This topic describes how to install and configure a9s RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 ##<a id='prerequisites'></a> Prerequisites
 
@@ -23,16 +23,15 @@ Before installing a9s RabbitMQ for PCF, ensure that you have installed and confi
 
 To install a9s RabbitMQ for PCF, perform the following steps:
 
-1. Download the product file from Pivotal Network.
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**
-to upload the product file.
+2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of a9s RabbitMQ for PCF.
 This adds the tile to your staging area.
 
 4. Click the newly added tile, and then click **Settings** to review the configuration settings.
-	See the following sections for more information on how to configure the properties on each side-tab:
+	See the following sections for more information on how to configure the properties on each settings pane:
 	* [Assign AZs and Networks](#azs)
 	* [Configure BOSH Errands](#errands)
 	* [Configure Service Plans](#configure-service-instance)
@@ -40,21 +39,21 @@ This adds the tile to your staging area.
 
 5. Click **Apply Changes** to deploy the service.
 
-After you install a9s RabbitMQ for PCF, it is available in the list of marketplace services. For more information, see [Using a9s RabbitMQ for PCF](./using.html).
+After you install a9s RabbitMQ for PCF, developers can access the service in the marketplace. See [Using a9s RabbitMQ for PCF](./using.html).
 
-##<a id="azs"></a>Assign AZs and Networks
+### <a id="azs"></a>Assign AZs and Networks
 
-Use **Assign AZs and Networks** to configure the location of service instance jobs. You should configure your network to balance cluster jobs between as many AZs as possible.
+Use **Assign AZs and Networks** to configure the location of service instance jobs. Configure your network to balance cluster jobs across as many AZs as possible.
 
 <%= image_tag("az-and-networks.png") %>
 
-##<a id='errands'></a>Configure BOSH Errands
+### <a id='errands'></a>Configure Errands
 
-Use **Errands** to configure the BOSH Errands used by a9s RabbitMQ for PCF. For more information, see the [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html) topic.
+Use **Errands** to configure the BOSH errands used by a9s RabbitMQ for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("a9s-rabbitmq-for-pcf-errands.png") %>
 
-### Post-Deployment Errands
+#### Post-Deployment Errands
 
  * **Run BOSH Configurator**:
 	This errand configures a9s BOSH for PCF so that it can provision RabbitMQ
@@ -77,56 +76,57 @@ Use **Errands** to configure the BOSH Errands used by a9s RabbitMQ for PCF. For 
 
  * **Run Smoke Tests**:
  This errand runs a series of basic tests against your a9s RabbitMQ for PCF
- installation to ensure that it is configured properly. The tests may
- take a certain amount of time, probably over 30 minutes.
+ installation to ensure that it is configured properly. The tests can
+ take over 30 minutes.
 
-### Pre-Delete Errands
+#### Pre-Delete Errands
 
  * **Delete all a9s RabbitMQ instances**:
-	This errand deletes all a9s RabbitMQ instances which were created with the `cf create-service` command by PCF end users.
+	This errand deletes all a9s RabbitMQ instances that were created with the `cf create-service` command by PCF end users.
 	<p class="note warning"><strong>Warning</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or service keys are existing, the errand fails.</p>
 
  * **Run Broker Deregistrar**:
 	This errand unregisters the a9s RabbitMQ for PCF service broker in Elastic Runtime. It also removes the a9s RabbitMQ service from the Elastic Runtime marketplace.
 
-##<a id="configure-service-instance"></a> Configure Service Plans
+###<a id="configure-service-instance"></a> Configure Service Plans
 
-The sizes and types of VMs used to provision service instances of a given service plan are specified in **IaaS Settings** of the **a9s BOSH for PCF** tile. For more information, see the [a9s BOSH for PCF](../a9s-bosh/installing.html) documentation.
+The sizes and types of VMs used to provision service instances of a given service plan are specified in **IaaS Settings** of the **a9s BOSH for PCF** tile.
 
-Available service plans are summarized in the table below:
+<p class="note"><strong>Note</strong>: For information on cloud properties, see the <em>Cloud Config</em> section of the <a href="http://docs.pivotal.io/partners/a9s-bosh/installing.html">a9s BOSH for PCF installation documentation</a> that corresponds to your IaaS.</p>
 
-| Plan | Specs for | Field |
-|------|-------|-------|
-|rabbitmq-single-small| Virtual Machine<br /> Persistent Disk | Cloud properties for the VM Type Small<br /> Cloud properties for the Disk Type Small|
-|rabbitmq-cluster-small| Virtual Machines<br /> Persistent Disks | Cloud properties for the VM Type Small<br /> Cloud properties for the Disk Type Small|
-|rabbitmq-single-big| Virtual Machine<br /> Persistent Disk | Cloud properties for the VM Type Large<br /> Cloud properties for the Disk Type Big|
-|rabbitmq-cluster-big| Virtual Machines<br /> Persistent Disks | Cloud properties for the VM Type Large<br /> Cloud properties for the Disk Type Big|
+See the table below for a summary of available service plans:
 
-##<a id="stemcell"></a>Configure Stemcells
+| This plan... | Uses these a9s BOSH for PCF settings to determine VM and Disk size |
+|------|-------|
+|rabbitmq-single-small| Cloud properties for the VM Type Small<br /> Cloud properties for the Disk Type Small|
+|rabbitmq-cluster-small| Cloud properties for the VM Type Small<br /> Cloud properties for the Disk Type Small|
+|rabbitmq-single-big| Cloud properties for the VM Type Large<br /> Cloud properties for the Disk Type Big|
+|rabbitmq-cluster-big| Cloud properties for the VM Type Large<br /> Cloud properties for the Disk Type Big|
 
-For enabling a new stemcell that is different from the default, navigate to **Stemcell**. Click **Import Stemcell** to upload the stemcell.
+###<a id="stemcell"></a>Configure Stemcells
+
+If you want to use a stemcell other than the default, click **Stemcell**, and then click **Import Stemcell** to upload the stemcell.
 
 <%= image_tag("stemcell-tab.png") %>
 
 ##<a id='deployment_updater'></a>Upgrade Existing Service Instances After a Tile Update
-This errand automatically updates the stemcell and all provisioned a9s RabbitMQ for PCF service instances to their lastest version after updating the tile.<br />
-The errand has to be run manually as explained below.
+After updating the a9s RabbitMQ for PCF tile, run this errand to update the stemcell and all provisioned service instances to their latest version.
 
-<p class="note"><strong>Note</strong>: It is recommended to run the <a href="./installing.html#errands" target="_blank">smoke tests</a> before running this errand.</p>
+<p class="note"><strong>Note</strong>: anynines recommends running the <a href="./installing.html#errands" target="_blank">smoke tests</a> before running this errand.</p>
 
-<p class="note"><strong>Note</strong>: To use the errand must know how to use the Ops Manager Director. For more information, see the
+<p class="note"><strong>Note</strong>: To run the errand, you must know how to use the Ops Manager Director. For more information, see the
 <a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare" target="_blank">Advanced Troubleshooting with the BOSH CLI</a> topic.</p>
 1. SSH into Ops Manager:
 <pre class="terminal">
 $ ssh ubuntu@OPS-MANAGER-FQDN
 Password: ***********
 </pre>
-2. Target the BOSH Director:
+2. Target the Ops Manager Director:
 <pre class="terminal">
 $ bosh --ca-cert /var/tempest/workspaces/default/root\_ca\_certificate target OPS-MANAGER-DIRECTOR-IP
 Target set to DIRECTOR\_UUID
 </pre>
-3. Log in to the BOSH Director:
+3. Log in to the Ops Manager Director:
 <pre class="terminal">
 $ bosh login
 Your username: director
@@ -153,8 +153,7 @@ Acting as user 'director' on 'p-bosh'
 | ...
 +-------------------------------------------+-------------------------------+-------------
 </pre>
-5. All deployment manifests are stored in the folder `/var/tempest/workspaces/default/deployments/`.
-Choose the `a9s-rabbitmq-service-...` deployment.
+5. All deployment manifests are stored in the `/var/tempest/workspaces/default/deployments/` folder. Choose the `a9s-rabbitmq-service-...` deployment.
 <pre class="terminal">
 $ bosh deployment /var/tempest/workspaces/default/deployments/a9s-rabbitmq-service-94443f82b52dcf333bbd.yml
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -176,4 +175,4 @@ Started preparing deployment > Preparing deployment. Done (00:00:01)
 &nbsp;
 Errand 'deployment-updater' completed successfully (exit code 0)
 </pre>
-<p class="note"><strong>Note</strong>: Depending on the number of service instances, the Deployment Updater may take a signification amount of time. While the errand runs, BOSH shows no logging output from the errand.</p>
+<p class="note"><strong>Note</strong>: Depending on the number of service instances, the Deployment Updater may take a significant amount of time to finish running. While the errand runs, BOSH shows no logging output from the errand.</p>
