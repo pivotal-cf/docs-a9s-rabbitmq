@@ -57,7 +57,7 @@ $ cf bind-service MY-APP-NAME MY-RABBITMQ-SERVICE
 
 To enable your app to access the service instance, run `cf restage MY-APP-NAME` or `cf restart MY-APP-NAME`.
 
-##<a id='credentials'></a> Obtain Service Instance Access Credentials
+##<a id='credentials'></a> Obtain Credentials for Accessing Your Service Instance
 
 After you bind a service instance to an app, PCF stores the credentials of your RabbitMQ database in the environment variables of the app. Run `cf env APP-NAME` to display the environment variables.
 
@@ -102,7 +102,7 @@ You can use the host, username, and password to connect to your database with a 
 
 ##<a id='deleting'></a> Delete a Service Instance
 
-<p class="note warning"><strong>Warning</strong>: This operation cannot be undone and the data is lost when the service is deleted. If you want to keep your data, you must back up your database before deleting the service instance.</p>
+<p class="note warning"><strong>Warning</strong>: This operation cannot be undone, and the data is lost when the service instance is deleted. If you want to keep your data, you must back up your database before deleting the service instance.</p>
 
 Follow the steps below to unbind the service instance from all apps and then delete it. 
 
@@ -124,7 +124,7 @@ This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app`
 
 ### Unbind a Service Instance
 
-Run `cf unbind-service` to unbind the service from your app.
+Run `cf unbind-service` to unbind the service instance from your app.
 
 <pre class="terminal">
 $ cf unbind-service a9s-rabbitmq-app my-rabbitmq-service
@@ -133,7 +133,7 @@ $ cf unbind-service a9s-rabbitmq-app my-rabbitmq-service
 
 ### Delete a Service Instance
 
-Run `cf delete-service` to delete the service:
+Run `cf delete-service` to delete the service instance:
 
 <pre class="terminal">
 $ cf delete-service my-rabbitmq-service
@@ -141,7 +141,7 @@ $ cf delete-service my-rabbitmq-service
 
 <p class="note"><strong>Note</strong>: This may take several minutes.</p>
 
-Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
+Deleting a service instance deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
 
 ##<a id='upgrade-service-plan'></a> Change Service Plan
 
@@ -159,7 +159,7 @@ You may choose to upgrade your service plan in one of the following ways:
 
 ##<a id='add-graphite-endpoint'></a>Add a Graphite Endpoint
 
-If you want to monitor your RabbitMQ service with [Graphite](https://graphiteapp.org/), you can specify an endpoint to send data to with the `cf update-service` command. This command expects the <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#arbitrary-params-update" target="_blank">-c flag</a>
+If you want to monitor your RabbitMQ service instance with [Graphite](https://graphiteapp.org/), you can specify an endpoint to send data to with the `cf update-service` command. This command expects the <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#arbitrary-params-update" target="_blank">-c flag</a>
 and a JSON string containing the `graphite` and `metrics_prefix` keys. For example: 
 
 <pre class="terminal">

@@ -33,7 +33,7 @@ This adds the tile to your staging area.
 4. Click the newly added tile, and then click **Settings** to review the configuration settings.
 	See the following sections for more information on how to configure the properties on each settings pane:
 	* [Assign AZs and Networks](#azs)
-	* [Configure BOSH Errands](#errands)
+	* [Configure Errands](#errands)
 	* [Configure Service Plans](#configure-service-instance)
 	* [Configure Stemcells](#stemcell)
 
@@ -43,7 +43,7 @@ After you install a9s RabbitMQ for PCF, developers can access the service in the
 
 ### <a id="azs"></a>Assign AZs and Networks
 
-Use **Assign AZs and Networks** to configure the location of service instance jobs. Configure your network to balance cluster jobs across as many AZs as possible.
+Use **Assign AZs and Networks** to configure the location of service instance jobs. Configure your network to balance cluster jobs across as many availability zones (AZs) as possible.
 
 <%= image_tag("az-and-networks.png") %>
 
@@ -71,7 +71,7 @@ Use **Errands** to configure the BOSH errands used by a9s RabbitMQ for PCF. The 
 
  * **Run Broker Registrar**:
 	This errand registers the a9s RabbitMQ for PCF service broker
-	at the Elastic Runtime. This makes the service available in the Elastic Runtime
+	with Elastic Runtime. This makes the service available in the Elastic Runtime
 	marketplace.
 
  * **Run Smoke Tests**:
@@ -90,13 +90,13 @@ Use **Errands** to configure the BOSH errands used by a9s RabbitMQ for PCF. The 
 
 ###<a id="configure-service-instance"></a> Configure Service Plans
 
-The sizes and types of VMs used to provision service instances of a given service plan are specified in **IaaS Settings** of the **a9s BOSH for PCF** tile.
+The sizes and types of VMs used to provision service instances of a given service plan are specified in **IaaS Settings** of the a9s BOSH for PCF tile.
 
 <p class="note"><strong>Note</strong>: For information on cloud properties, see the <em>Cloud Config</em> section of the <a href="http://docs.pivotal.io/partners/a9s-bosh/installing.html">a9s BOSH for PCF installation documentation</a> that corresponds to your IaaS.</p>
 
 See the table below for a summary of available service plans:
 
-| This plan... | Uses these a9s BOSH for PCF settings to determine VM and Disk size |
+| This plan... | Uses these a9s BOSH for PCF settings to determine VM and disk size |
 |------|-------|
 |rabbitmq-single-small| Cloud properties for the VM Type Small<br /> Cloud properties for the Disk Type Small|
 |rabbitmq-cluster-small| Cloud properties for the VM Type Small<br /> Cloud properties for the Disk Type Small|
@@ -114,8 +114,7 @@ After updating the a9s RabbitMQ for PCF tile, run this errand to update the stem
 
 <p class="note"><strong>Note</strong>: anynines recommends running the <a href="./installing.html#errands" target="_blank">smoke tests</a> before running this errand.</p>
 
-<p class="note"><strong>Note</strong>: To run the errand, you must know how to use the Ops Manager Director. For more information, see the
-<a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare" target="_blank">Advanced Troubleshooting with the BOSH CLI</a> topic.</p>
+<p class="note"><strong>Note</strong>: To run the errand, you must know how to use the Ops Manager Director. For more information, see <a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare" target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
 1. SSH into Ops Manager:
 <pre class="terminal">
 $ ssh ubuntu@OPS-MANAGER-FQDN
