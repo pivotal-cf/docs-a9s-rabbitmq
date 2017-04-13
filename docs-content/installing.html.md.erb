@@ -39,7 +39,7 @@ This adds the tile to your staging area.
 
 5. Click **Apply Changes** to deploy the service.
 
-After you install a9s RabbitMQ for PCF, developers can access the service in the marketplace. See [Using a9s RabbitMQ for PCF](./using.html).
+After you install a9s RabbitMQ for PCF, developers can access the service in the Marketplace. See [Using a9s RabbitMQ for PCF](./using.html).
 
 ### <a id="azs"></a>Assign AZs and Networks
 
@@ -49,11 +49,11 @@ Use **Assign AZs and Networks** to configure the location of service instance jo
 
 ### <a id='errands'></a>Configure Errands
 
-Use **Errands** to configure the BOSH errands used by a9s RabbitMQ for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
+Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s RabbitMQ for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("a9s-rabbitmq-for-pcf-errands.png") %>
 
-#### Post-Deployment Errands
+#### Post-Deploy Errands
 
  * **Run BOSH Configurator**:
 	This errand configures a9s BOSH for PCF so that it can provision RabbitMQ
@@ -82,8 +82,8 @@ Use **Errands** to configure the BOSH errands used by a9s RabbitMQ for PCF. The 
 #### Pre-Delete Errands
 
  * **Delete all a9s RabbitMQ instances**:
-	This errand deletes all a9s RabbitMQ instances that were created with the `cf create-service` command by PCF end users.
-	<p class="note warning"><strong>Warning</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or service keys are existing, the errand fails.</p>
+	This errand deletes all a9s RabbitMQ instances that were created with the `cf create-service` command.
+	<p class="note warning"><strong>Warning</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or has existing service keys, the errand fails.</p>
 
  * **Run Broker Deregistrar**:
 	This errand unregisters the a9s RabbitMQ for PCF service broker in Elastic Runtime. It also removes the a9s RabbitMQ service from the Elastic Runtime marketplace.

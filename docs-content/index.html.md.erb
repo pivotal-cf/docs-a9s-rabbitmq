@@ -18,15 +18,15 @@ For clustered data service plans, databases are distributed across multiple infr
 
 ### <a></a>Current Features
 
-The current version of a9s RabbitMQ for PCF includes the following key features:
+a9s RabbitMQ for PCF includes the following key features:
 
 | Feature | Description |
 |---------|---------|
 | **On­-demand service instance provisioning** | a9s RabbitMQ for PCF deploys RabbitMQ instances automatically. Developers can provision a single-VM RabbitMQ server or a multi-VM RabbitMQ replica set using a single command. |
-| **Service instance isolation** | Each RabbitMQ server runs on a dedicated VM to ensure bad-neighborhood protection for aligning with enterprise security requirements.<br/><br/>a9s RabbitMQ for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections being established by unauthorized apps.
+| **Service instance isolation** | Each RabbitMQ server runs on a dedicated VM to ensure bad-neighborhood protection and align with enterprise security requirements.<br/><br/>a9s RabbitMQ for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized app.
 | **High availability** | a9s RabbitMQ for PCF ensures high availability using RabbitMQ replication.<br/><br/>The Consul-based internal DNS system provided by a9s Consul DNS for PCF ensures that the bound app always connects to a working node. |
-| **Smoke tests** | a9s RabbitMQ for PCF contains a post-deployment, smoke-test errand that runs a series of basic tests against your installation to ensure correct configuration. |
-| **Service instance capacity upgrade** | Cloud Foundry service plan updates allow upgrades to the RAM, CPU, and storage capacity for your RabbitMQ instances. |
+| **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation to ensure correct configuration. |
+| **Service instance capacity upgrade** | By updating your service plan, you can upgrade the RAM, CPU, and storage capacity for your RabbitMQ instances. |
 | **Logging and monitoring** | Each RabbitMQ service instance provides log messages and RabbitMQ-specific metrics to one or more `syslog/graphite` endpoints. You can configure the `syslog/graphite` endpoint to receive logging and monitoring information. |
 | **Deployment updater** | This errand automatically updates the stemcell and all provisioned RabbitMQ service instances to their latest version. |
 
@@ -62,7 +62,7 @@ The following table provides version and version-support information for a9s Rab
         <td>AWS, OpenStack, and vSphere</td>
     </tr>
     <tr>
-        <td>IPsec support?</td>
+        <td>IPsec support</td>
         <td>No</td>
     </tr>
 </table>

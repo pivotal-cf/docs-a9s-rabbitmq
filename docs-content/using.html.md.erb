@@ -34,7 +34,7 @@ For more information on available service plans, see [Configure Service Plans](.
 
 ###<a id='create-instance'></a> Create a Service Instance
 
-To provision a RabbitMQ database, run `cf create-service SERVICE-NAME PLAN-NAME INSTANCE-NAME`. For example:
+To provision a RabbitMQ database, run `cf create-service SERVICE-NAME PLAN-NAME INSTANCE-NAME` where `INSTANCE-NAME` is any name you want to give the instance you create.
 
 <pre class="terminal">
 $ cf create-service a9s-rabbitmq36 rabbitmq-single-small my-rabbitmq-service
@@ -42,7 +42,7 @@ $ cf create-service a9s-rabbitmq36 rabbitmq-single-small my-rabbitmq-service
 
 <p class="note"><strong>Note</strong>: This may take several minutes.</p>
 
-Run the `cf services` command to list all your service instances. To view the status of a specific service instance, run `cf service INSTANCE-NAME` where `INSTANCE-NAME` is any name you want to give the instance you create.
+Run the `cf services` command to list all your service instances. To view the status of a specific service instance, run `cf service INSTANCE-NAME`.
 
 ###<a id='bind-instance'></a> Bind an App to a Service Instance
 
