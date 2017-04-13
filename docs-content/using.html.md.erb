@@ -144,7 +144,7 @@ Deleting a service instance deprovisions the corresponding infrastructure resour
 
 ##<a id='upgrade-service-plan'></a> Change Service Plan
 
-Run `cf update-service INSTANCE-NAME PLAN-NAME` to modify your service instance to use a different service plan. You may want to use a larger service plan that provides more CPU, RAM, and storage. For more information, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#update_service" target="_blank">Update a Service Instance</a>.
+Run `cf update-service INSTANCE-NAME -p PLAN-NAME` to modify your service instance to use a different service plan. You may want to use a larger service plan that provides more CPU, RAM, and storage. For more information, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#update_service" target="_blank">Update a Service Instance</a>.
 
 <pre class="terminal">
 $ cf update-service my-rabbitmq-service -p a-bigger-plan
