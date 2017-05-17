@@ -14,10 +14,22 @@ owner: Partners
 
 This topic describes how to install and configure a9s RabbitMQ for Pivotal Cloud Foundry (PCF).
 
+
 ##<a id='prerequisites'></a> Prerequisites
 
 Before installing a9s RabbitMQ for PCF, ensure that you have installed and configured the products and tiles listed in [Requirements](./index.html#reqs).
 
+This comprises the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF**
+tile.
+
+In short, the a9s Consul DNS for PCF tile is required because it is responsible
+for providing an internal DNS system to the other a9s service tiles, the a9s
+RabbitMQ for PCF included. You can find further information about this tile in
+[its own documentation](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
+
+As for the a9s BOSH for PCF tile, it is required because it is used by the a9s
+service tiles, for the provisioning and lifecycle managment of their vitual
+machine. Further information on this tile can be found in [its own documentation](https://docs.pivotal.io/partners/a9s-bosh/usecase.html).
 
 ##<a id='install'></a> Install and Configure a9s RabbitMQ for PCF
 
@@ -27,31 +39,34 @@ To install a9s RabbitMQ for PCF, perform the following steps:
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of a9s RabbitMQ for PCF.
-This adds the tile to your staging area.
+3. Click **Add** or **+**(depending on the PCF version) next to the uploaded a9s RabbitMQ for PCF tile in the Ops Manager
+**Available Products** view to add it to your staging area.
 
-4. Click the newly added tile, and then click **Settings** to review the configuration settings.
-	See the following sections for more information on how to configure the properties in each settings pane:
+4. Click the new tile, then click **Settings** to review the configuration settings for each tab.
+	See the following sections for more information on how to configure the properties on each side-tab:
 	* [Assign AZs and Networks](#azs)
-	* [Configure Errands](#errands)
-	* [Configure Service Plans](#configure-service-instance)
+	* [Configure BOSH Errands](#errands)
+	* [Configure Resources](#resource-config)
 	* [Configure Stemcells](#stemcell)
 
 5. Click **Apply Changes** to deploy the service.
 
 After you install a9s RabbitMQ for PCF, developers can access the service in the Marketplace. See [Using a9s RabbitMQ for PCF](./using.html).
 
-### <a id="azs"></a>Assign AZs and Networks
 
-Use **Assign AZs and Networks** to configure the location of service instance jobs. Configure your network to balance cluster jobs across as many availability zones (AZs) as possible.
+###<a id="azs"></a>Assign AZs and Networks
+
+Use **Assign AZs and Networks** to configure the location of service instance jobs. You should configure your network to balance cluster jobs between as many AZs as possible.
 
 <%= image_tag("az-and-networks.png") %>
+
 
 ### <a id='errands'></a>Configure Errands
 
 Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s RabbitMQ for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("a9s-rabbitmq-for-pcf-errands.png") %>
+
 
 #### Post-Deploy Errands
 
@@ -88,7 +103,26 @@ Use **Errands** to configure the lifecycle errands that run when you install or 
  * **Run Broker Deregistrar**:
 	This errand unregisters the a9s RabbitMQ for PCF service broker in Elastic Runtime. It also removes the a9s RabbitMQ service from the Elastic Runtime marketplace.
 
-###<a id="configure-service-instance"></a> Configure Service Plans
+
+###<a id='resource-config'></a> Configure Resources
+
+You can configure the dimensions of the VMs that host the a9s RabbitMQ for PCF components.
+This configuration does not cover the dedicated RabbitMQ instances that run on VMs provided by the a9s BOSH tile for PCF.
+For more information, see [Configure Service Plan VMs](#configure-service-instance).
+
+<p class="note"><strong>Note</strong>: Pivotal recommends using a VM Type of large or greater to support the tile compilation.</p>
+
+<%= image_tag("a9s-rabbitmq-resource-config.png") %>
+
+
+###<a id="stemcell"></a>Configure Stemcells
+
+If you want to use a stemcell other than the default, click **Stemcell**, and then click **Import Stemcell** to upload the stemcell.
+
+<%= image_tag("stemcell-tab.png") %>
+
+
+##<a id="configure-service-instance"></a> Configure Service Plans
 
 The sizes and types of VMs used to provision service instances of a given service plan are specified in the **Cloud Config** pane of the a9s BOSH for PCF tile. See the <em>Cloud Config</em> section of the <a href="http://docs.pivotal.io/partners/a9s-bosh/installing.html">a9s BOSH for PCF installation documentation</a> that corresponds to your IaaS.</p>
 
@@ -101,11 +135,6 @@ The table below lists available service plans:
 |rabbitmq-single-big| Cloud properties for the VM Type Large<br /> Cloud properties for the Disk Type Big|
 |rabbitmq-cluster-big| Cloud properties for the VM Type Large<br /> Cloud properties for the Disk Type Big|
 
-###<a id="stemcell"></a>Configure Stemcells
-
-If you want to use a stemcell other than the default, click **Stemcell**, and then click **Import Stemcell** to upload the stemcell.
-
-<%= image_tag("stemcell-tab.png") %>
 
 ##<a id='deployment_updater'></a>Update Existing Service Instances
 
