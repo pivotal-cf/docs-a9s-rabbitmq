@@ -22,14 +22,18 @@ Before installing a9s RabbitMQ for PCF, ensure that you have installed and confi
 This comprises the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF**
 tile.
 
-In short, the a9s Consul DNS for PCF tile is required because it is responsible
+The a9s Consul DNS for PCF tile is required because it is responsible
 for providing an internal DNS system to the other a9s service tiles, the a9s
-RabbitMQ for PCF included. You can find further information about this tile in
-[its own documentation](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
+RabbitMQ for PCF included. 
 
-As for the a9s BOSH for PCF tile, it is required because it is used by the a9s
+For more information about this tile, see
+[The Purpose of the a9s Consul DNS for PCF Tile](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
+
+The a9s BOSH for PCF tile is required because it is used by the a9s
 service tiles, for the provisioning and lifecycle managment of their vitual
-machine. Further information on this tile can be found in [its own documentation](https://docs.pivotal.io/partners/a9s-bosh/usecase.html).
+machine.
+
+For more information about this tile, see [a9s BOSH for PCF Use Case](https://docs.pivotal.io/partners/a9s-bosh/usecase.html).
 
 ##<a id='install'></a> Install and Configure a9s RabbitMQ for PCF
 
@@ -108,6 +112,7 @@ Use **Errands** to configure the lifecycle errands that run when you install or 
 
 You can configure the dimensions of the VMs that host the a9s RabbitMQ for PCF components.
 This configuration does not cover the dedicated RabbitMQ instances that run on VMs provided by the a9s BOSH tile for PCF.
+
 For more information, see [Configure Service Plan VMs](#configure-service-instance).
 
 <p class="note"><strong>Note</strong>: Pivotal recommends using a VM Type of large or greater to support the tile compilation.</p>
