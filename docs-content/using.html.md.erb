@@ -2,25 +2,17 @@
 title: Using a9s RabbitMQ for PCF
 owner: Partners
 ---
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-     }
-</style>
 
-This topic describes how to use a9s RabbitMQ for Pivotal Cloud Foundry (PCF) after it has been successfully [installed](./installing.html).
+This topic describes how to use a9s RabbitMQ for PCF after it has been successfully installed. For more information, see the [Installing and Configuring a9s RabbitMQ for PCF](./installing.html) topic.
 
-##<a id='using'></a>Use a9s RabbitMQ for PCF with an App
+##<a id='using'></a>Use a9s RabbitMQ for PCF with an Application
 
-To use a9s RabbitMQ for PCF with an app, create a service instance and bind it to your app by following the steps below. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
+To use a9s RabbitMQ for PCF with an application, create a service instance and bind the service instance
+to your application. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
 
-###<a id='view-service'></a> View the Service
+###<a id='view-service'></a> View the a9s RabbitMQ for PCF Service
 
-After the tile is installed, run `cf marketplace` to see `a9s-rabbitmq` and its service plans:
+After the tile is installed, you can see the `a9s-rabbitmq` and its service plans appear in your PCF marketplace. Run `cf marketplace` to see the service listing:
 <pre class="terminal">
 $ cf marketplace
 Getting services from marketplace in org test / space test as admin...
@@ -34,31 +26,31 @@ For more information on available service plans, see [Configure Service Plans](.
 
 ###<a id='create-instance'></a> Create a Service Instance
 
-To provision a RabbitMQ database, run `cf create-service SERVICE-NAME PLAN-NAME INSTANCE-NAME` where `INSTANCE-NAME` is any name you want to give the instance you create.
+To provision a RabbitMQ database, run `cf create-service`. For example:
 
 <pre class="terminal">
 $ cf create-service a9s-rabbitmq36 rabbitmq-single-small my-rabbitmq-service
 </pre>
 
-<p class="note"><strong>Note</strong>: This may take several minutes.</p>
+Depending on your infrastructure and service broker utilization, it may take several minutes to create the service instance.
 
-Run the `cf services` command to list all your service instances. To view the status of a specific service instance, run `cf service INSTANCE-NAME`.
+Run the `cf services` command to view the creation status. This command displays a list of all your service instances. To view the status of a specific service instance, run `cf service NAME-OF-YOUR-SERVICE`.
 
-###<a id='bind-instance'></a> Bind an App to a Service Instance
+###<a id='bind-instance'></a> Bind an Application to a Service Instance
 
-After you create your database, run `cf bind-service APP-NAME INSTANCE-NAME` to bind the service to your app:
+After your databse is created, run `cf bind-service` to bind the service to your application:
 
 <pre class="terminal">
 $ cf bind-service a9s-rabbitmq-app my-rabbitmq-service
 </pre>
 
-###<a id='restage'></a> Restage or Restart Your App
+###<a id='restage'></a> Restage or Restart Your Application
 
-To enable your app to access the service instance, run `cf restage APP-NAME` or `cf restart APP-NAME`.
+To enable your application to access the service instance, run `cf restage` or `cf restart` to restage or restart your application.
 
 ##<a id='credentials'></a> Obtain Credentials for Accessing Your Service Instance
 
-After you bind a service instance to an app, PCF stores the credentials of your RabbitMQ database in the environment variables of the app. Run `cf env APP-NAME` to display the environment variables.
+After a service instance is bound to an application, PCF stores the credentials of your RabbitMQ database in the environment variables of the app. Run `cf env APP-NAME` to display the environment variables.
 
 You can find the credentials in the <a href="http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES" target="_blank">VCAP_SERVICES</a> key.
 
@@ -99,11 +91,11 @@ System-Provided:
 
 You can use the host, username, and password to connect to your database with a RabbitMQ client.
 
-##<a id='deleting'></a> Delete a Service Instance
+##<a id='deleting'></a> Delete a a9s RabbitMQ for PCF Service Instance
 
 <p class="note warning"><strong>Warning</strong>: This operation cannot be undone, and the data is lost when the service instance is deleted. If you want to keep your data, you must back up your database before deleting the service instance.</p>
 
-Follow the steps below to unbind the service instance from all apps and then delete it. 
+Follow the steps below to unbind the service instance from all apps and then delete it.
 
 ###<a id='list-instances'></a> List Available Services
 
@@ -119,11 +111,11 @@ name                  service          plan                    bound apps       
 my-rabbitmq-service   a9s-rabbitmq36   rabbitmq-single-small   a9s-rabbitmq-app   create succeeded
 </pre>
 
-This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app` app.
+This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app` application.
 
 ###<a id=''></a> Unbind a Service Instance
 
-Run `cf unbind-service APP-NAME INSTANCE-NAME` to unbind the service instance from your app.
+Run `cf unbind-service` to unbind the service instance from your application.
 
 <pre class="terminal">
 $ cf unbind-service a9s-rabbitmq-app my-rabbitmq-service
@@ -138,28 +130,29 @@ Run `cf delete-service INSTANCE-NAME` to delete the service instance:
 $ cf delete-service my-rabbitmq-service
 </pre>
 
-<p class="note"><strong>Note</strong>: This may take several minutes.</p>
+It may take several minutes to delete the service. Deleting a service deprovisions the corresponding infrastructure resources.
+Run the `cf services` command to view the deletion status.
 
-Deleting a service instance deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
+##<a id='upgrade-service-plan'></a> Upgrade the Service Instance to another Service Plan
 
-##<a id='upgrade-service-plan'></a> Change Service Plan
-
-Run `cf update-service INSTANCE-NAME -p PLAN-NAME` to modify your service instance to use a different service plan. You may want to use a larger service plan that provides more CPU, RAM, and storage. For more information, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#update_service" target="_blank">Update a Service Instance</a>.
+Once created, you can upgrade your service instance to another, larger service plan. A larger service plan provides more CPU, RAM and storage. For more information, see the  <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#update_service" target="_blank">Update a Service Instance</a> of the _Managing Service Instances with the cf CLI_ topic.
 
 <pre class="terminal">
 $ cf update-service my-rabbitmq-service -p a-bigger-plan
 </pre>
 
-You may choose to upgrade your service plan in one of the following ways:
+Here are the plans you can upgrade to depending on the one you are currently
+using:
 
-* From `rabbitmq-single-small` to `rabbitmq-single-big`
+* If you are currently using the `rabbitmq-single-small` plan, you can upgrade to the `rabbitmq-single-big` plan.
 
-* From `rabbitmq-cluster-small` to `rabbitmq-cluster-big`
+* If you are currently using the `rabbitmq-cluster-small` plan, you can upgrade to the `rabbitmq-cluster-big` plan.
 
 ##<a id='add-graphite-endpoint'></a>Add a Graphite Endpoint
 
-If you want to monitor your RabbitMQ service instance with [Graphite](https://graphiteapp.org/), you can specify an endpoint to send data to with the `cf update-service` command. This command expects the <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#arbitrary-params-update" target="_blank">-c flag</a>
-and a JSON string containing the `graphite` and `metrics_prefix` keys. 
+If you want to monitor your service with Graphite, you can set an endpoint to
+where to information will be sent with the `cf update-service` command. This command expects the <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#arbitrary-params-update" target="_blank">-c flag</a>
+and a JSON string containing the `graphite` and `metrics_prefix` keys.
 
 <pre class="terminal">
 $ cf update-service my-rabbitmq-service -c '{ "graphite": ["yourspace.your-graphite-endpoint.com:12345"], "metrics_prefix": "your-api-key.my-cluster-rabbitmq" }'

@@ -2,36 +2,26 @@
 title: Installing and Configuring a9s RabbitMQ for PCF
 owner: Partners
 ---
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-     }
-</style>
 
 This topic describes how to install and configure a9s RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 
 ##<a id='prerequisites'></a> Prerequisites
 
-Before installing a9s RabbitMQ for PCF, ensure that you have installed and configured the products and tiles listed in [Requirements](./index.html#reqs).
+Before installing a9s RabbitMQ for PCF,
+ensure that you have installed and configured the products and tiles listed in [Requirements](./index.html#reqs).
 
 This comprises the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF**
 tile.
 
 The a9s Consul DNS for PCF tile is required because it is responsible
 for providing an internal DNS system to the other a9s service tiles, the a9s
-RabbitMQ for PCF included. 
-
+RabbitMQ for PCF included.
 For more information about this tile, see
 [The Purpose of the a9s Consul DNS for PCF Tile](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
 
 The a9s BOSH for PCF tile is required because it is used by the a9s
 service tiles, for the provisioning and lifecycle management of their VM.
-
 For more information about this tile, see [a9s BOSH for PCF Use Case](https://docs.pivotal.io/partners/a9s-bosh/usecase.html).
 
 ##<a id='install'></a> Install and Configure a9s RabbitMQ for PCF
@@ -40,33 +30,50 @@ To install a9s RabbitMQ for PCF, perform the following steps:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/a9s-rabbitmq).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**
+to upload the product file.
 
 3. Click **Add** or **+**(depending on the PCF version) next to the uploaded a9s RabbitMQ for PCF tile in the Ops Manager
 **Available Products** view to add it to your staging area.
 
 4. Click the new tile, then click **Settings** to review the configuration settings for each tab.
-	See the following sections for more information on how to configure the properties on each side-tab:
-	* [Assign AZs and Networks](#azs)
-	* [Configure BOSH Errands](#errands)
-	* [Configure Resources](#resource-config)
-	* [Configure Stemcells](#stemcell)
+  See the following sections for more information on how to configure the properties on each side-tab:
+  * [Assign AZs and Networks](#azs)
+  * [Configure the Backup Manager](#backup-manager)
+  * [Configure BOSH Errands](#errands)
+  * [Configure Resources](#resource-config)
+  * [Configure Stemcells](#stemcell)
 
 5. Click **Apply Changes** to deploy the service.
 
-After you install a9s RabbitMQ for PCF, developers can access the service in the Marketplace. See [Using a9s RabbitMQ for PCF](./using.html).
+After installing the a9s RabbitMQ for PCF, it is available in the list of marketplace services.
+For more information, see [Using a9s RabbitMQ for PCF](./using.html).
 
 
 ###<a id="azs"></a>Assign AZs and Networks
 
-Use **Assign AZs and Networks** to configure the location of service instance jobs. You should configure your network to balance cluster jobs between as many AZs as possible.
+Use **Assign AZs and Networks** to configure the location of service instance jobs. Y
+ou should configure your network to balance cluster jobs between as many AZs as possible.
 
 <%= image_tag("az-and-networks.png") %>
 
+###<a id='backup-manager'></a>Configure the Backup Manager
+
+Use **Backup settings** to enter the crendentials of the AWS account where the
+backup will be uploaded – this feature only supports AWS S3 at the moment.
+Leave those fields empty if you don't want to backup your data with the a9s RabbitMQ
+for PCF tile.
+
+You can also modify the default values for the backup task and the [Cron](https://en.wikipedia.org/wiki/Cron)
+job that is used to schedule the backups.
+
+<%= image_tag("backup-settings.png") %>
 
 ### <a id='errands'></a>Configure Errands
 
-Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s RabbitMQ for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
+Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s RabbitMQ for PCF.
+The list below describes each errand.
+For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("a9s-rabbitmq-for-pcf-errands.png") %>
 
@@ -79,18 +86,18 @@ Use **Errands** to configure the lifecycle errands that run when you install or 
   the a9s BOSH Director. Disabling this errand may speed up the deployment of
   all tiles.
 
-	<p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
+  <p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
  * **Run Template Uploader**:
-	This errand is required to configure generic components that are included in a9s RabbitMQ for PCF with RabbitMQ  configurations.
-	Disabling this errand may speed up the deployment of all tiles.
+  This errand is required to configure generic components that are included in a9s RabbitMQ for PCF with RabbitMQ  configurations.
+  Disabling this errand may speed up the deployment of all tiles.
 
-	<p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
+  <p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
  * **Run Broker Registrar**:
-	This errand registers the a9s RabbitMQ for PCF service broker
-	with Elastic Runtime. This makes the service available in the Elastic Runtime
-	marketplace.
+  This errand registers the a9s RabbitMQ for PCF service broker
+  with Elastic Runtime. This makes the service available in the Elastic Runtime
+  marketplace.
 
  * **Run Smoke Tests**:
  This errand runs a series of basic tests against your a9s RabbitMQ for PCF
@@ -100,18 +107,17 @@ Use **Errands** to configure the lifecycle errands that run when you install or 
 #### Pre-Delete Errands
 
  * **Delete all a9s RabbitMQ instances**:
-	This errand deletes all a9s RabbitMQ instances that were created with the `cf create-service` command.
-	<p class="note warning"><strong>Warning</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or has existing service keys, the errand fails.</p>
+  This errand deletes all a9s RabbitMQ instances that were created with the `cf create-service` command.
+  <p class="note warning"><strong>Warning</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or has existing service keys, the errand fails.</p>
 
  * **Run Broker Deregistrar**:
-	This errand unregisters the a9s RabbitMQ for PCF service broker in Elastic Runtime. It also removes the a9s RabbitMQ service from the Elastic Runtime marketplace.
+  This errand unregisters the a9s RabbitMQ for PCF service broker in Elastic Runtime. It also removes the a9s RabbitMQ service from the Elastic Runtime marketplace.
 
 
 ###<a id='resource-config'></a> Configure Resources
 
 You can configure the dimensions of the VMs that host the a9s RabbitMQ for PCF components.
 This configuration does not cover the dedicated RabbitMQ instances that run on VMs provided by the a9s BOSH tile for PCF.
-
 For more information, see [Configure Service Plan VMs](#configure-service-instance).
 
 <p class="note"><strong>Note</strong>: Pivotal recommends using a VM Type of large or greater to support the tile compilation.</p>
@@ -121,7 +127,7 @@ For more information, see [Configure Service Plan VMs](#configure-service-instan
 
 ###<a id="stemcell"></a>Configure Stemcells
 
-If you want to use a stemcell other than the default, click **Stemcell**, and then click **Import Stemcell** to upload the stemcell.
+Use **Configure Stemcells** enable another stemcell than the default one. Click **Import Stemcell** to upload a new stemcell.
 
 <%= image_tag("stemcell-tab.png") %>
 
@@ -210,3 +216,66 @@ Started preparing deployment > Preparing deployment. Done (00:00:01)
 Errand 'deployment-updater' completed successfully (exit code 0)
 </pre>
 <p class="note"><strong>Note</strong>: Depending on the number of service instances, the Deployment Updater may take significant time to finish running. BOSH shows no logging output while the errand runs.</p>
+
+##<a id='interacting-with-the-backup-manager'></a> Trigger Backups and Restores on Demand
+
+Only PCF administrators can interact with the Backup Manager
+endpoints to trigger immediate backups and restores of backups.
+
+To backup, perform the following steps:
+
+1. Navigate to the **Status** tab of the tile and record the IP address of one of the Backup Manager instances.
+
+    <%= image_tag("backup-manager-status-tab.png", width: 300) %>
+
+2. On the **Credentials** tab, find the credentials of the service under **backup-manager** > **Backup Manager Credentials**.
+
+    <%= image_tag("backup-manager-credentials.png", width: 300) %>
+
+2. Trigger a backup on all RabbitMQ instances by calling the **/backup\_agent/backup\_all** endpoint:
+<pre class="terminal">
+$ curl backup:53cr3t&commat;172.28.7.64:3000/backup\_agent/backup\_all -d {}
+</pre>
+or on a given instance with its GUID by calling the **/backup\_agent/backup**
+endpoint:
+<pre class="terminal">
+$ curl backup<span>:53cr3t&commat;172.28.7.64:3000</span>/backup\_agent/backup -d "instance\_guid=1c16933a-892f-4fe0-b968-ea0bf90246c9"
+</pre>
+
+To restore, perform the following steps:
+
+3. Find the ID of the Backup and the
+ID of the instance by listing the instances:
+<pre class="terminal">
+$ curl backup:53cr3t&commat;172.28.7.64:3000/instances
+</pre>
+This command outputs an array composed of objects like this one:
+<pre class="terminal">
+{
+  "restores": [],
+  "backups": [
+    {
+      "backup\_agent\_task": {
+        "updated\_at": "2017-05-19T09:01:31.389Z",
+        "created\_at": "2017-05-19T09:01:16.064Z",
+        "status": "done",
+        "task\_id": 5,
+        "id": 5
+      },
+      "instance\_id": 1,
+      "id": 5
+    }
+  ],
+  "instance\_id": "1c16933a-892f-4fe0-b968-ea0bf90246c9",
+  "id": 1
+}
+</pre>
+In the example above, backups and restores that have been performed for
+the instance with the instance_id `1c16933a-892f-4fe0-b968-ea0bf90246c9`. This
+ID corresponds to the instance GUID from PCF.
+
+4. Restore the backup by calling the **/backup\_agent/restores**
+endpoint with the backup\_id and instance\_id as data.
+<pre class="terminal">
+$ curl backup:53cr3t&commat;172.28.7.64:3000/backup\_agent/restores -d "backup\_id=5" -d "instance\_id=1"
+</pre>

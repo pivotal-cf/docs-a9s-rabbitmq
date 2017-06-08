@@ -3,6 +3,18 @@ title: a9s RabbitMQ for PCF Release Notes
 owner: Partners
 ---
 
+## <a id="1-0-0"></a>v1.0.0
+
+**Release Date:** June 9, 2017
+
+* Added a Backup Manager that allows the creation of manual and automatic backups and manual recoveries.
+* Added a Service Guard that creates security groups for your instance.
+
+Known issues in this release:
+
+* Failed backups with empty configuration — The Backup Manager schedules backups
+even when its settings are left empty and these backups are displayed as “failed” in the Backup Manager API.
+
 ## <a id="0-10-1"></a>v0.10.1
 
 **Release Date:** April 17, 2017
