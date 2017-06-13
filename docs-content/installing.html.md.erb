@@ -108,7 +108,7 @@ For more information, see [Understanding Lifecycle Errands](https://docs.pivotal
 
  * **Delete all a9s RabbitMQ instances**:
   This errand deletes all a9s RabbitMQ instances that were created with the `cf create-service` command.
-  <p class="note warning"><strong>Warning</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or has existing service keys, the errand fails.</p>
+  <p class="note warning"><strong>WARNING</strong>: This task cannot be undone. All VMs of the service instances are permanently deleted. If a service instance is bound to an app or has existing service keys, the errand fails.</p>
 
  * **Run Broker Deregistrar**:
   This errand unregisters the a9s RabbitMQ for PCF service broker in Elastic Runtime. It also removes the a9s RabbitMQ service from the Elastic Runtime marketplace.
