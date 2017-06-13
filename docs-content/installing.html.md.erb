@@ -9,14 +9,12 @@ This topic describes how to install and configure a9s RabbitMQ for Pivotal Cloud
 ##<a id='prerequisites'></a> Prerequisites
 
 Before installing a9s RabbitMQ for PCF,
-ensure that you have installed and configured the products and tiles listed in [Requirements](./index.html#reqs).
-
-This comprises the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF**
+ensure that you have installed and configured the products and tiles listed in [Requirements](./index.html#reqs). These include the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF**
 tile.
 
 The a9s Consul DNS for PCF tile is required because it is responsible
-for providing an internal DNS system to the other a9s service tiles, the a9s
-RabbitMQ for PCF included.
+for providing an internal DNS system to the other a9s service tiles, including the a9s
+RabbitMQ for PCF.
 For more information about this tile, see
 [The Purpose of the a9s Consul DNS for PCF Tile](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
 
@@ -26,15 +24,14 @@ For more information about this tile, see [a9s BOSH for PCF Use Case](https://do
 
 ##<a id='install'></a> Install and Configure a9s RabbitMQ for PCF
 
-To install a9s RabbitMQ for PCF, perform the following steps:
+To install a9s RabbitMQ for PCF, do the following:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/a9s-rabbitmq).
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**
 to upload the product file.
 
-3. Click **Add** or **+**(depending on the PCF version) next to the uploaded a9s RabbitMQ for PCF tile in the Ops Manager
-**Available Products** view to add it to your staging area.
+3. In the Ops Manager **Available Products** page, click **Add** or **+** (depending on the PCF version) next to the uploaded a9s RabbitMQ for PCF tile to add it to your staging area.
 
 4. Click the new tile, then click **Settings** to review the configuration settings for each tab.
   See the following sections for more information on how to configure the properties on each side-tab:
@@ -52,15 +49,14 @@ For more information, see [Using a9s RabbitMQ for PCF](./using.html).
 
 ###<a id="azs"></a>Assign AZs and Networks
 
-Use **Assign AZs and Networks** to configure the location of service instance jobs. Y
-ou should configure your network to balance cluster jobs between as many AZs as possible.
+Use **Assign AZs and Networks** to configure the location of service instance jobs. You should configure your network to balance cluster jobs between as many AZs as possible.
 
 <%= image_tag("az-and-networks.png") %>
 
 ###<a id='backup-manager'></a>Configure the Backup Manager
 
-Use **Backup settings** to enter the crendentials of the AWS account where the
-backup will be uploaded – this feature only supports AWS S3 at the moment.
+Use **Backup settings** to enter the credentials of the AWS account where the
+backup will be uploaded – this feature only supports AWS S3.
 Leave those fields empty if you don't want to backup your data with the a9s RabbitMQ
 for PCF tile.
 
@@ -127,7 +123,7 @@ For more information, see [Configure Service Plan VMs](#configure-service-instan
 
 ###<a id="stemcell"></a>Configure Stemcells
 
-Use **Configure Stemcells** enable another stemcell than the default one. Click **Import Stemcell** to upload a new stemcell.
+Use **Configure Stemcells** to enable a stemcell other than the default one. Click **Import Stemcell** to upload a new stemcell.
 
 <%= image_tag("stemcell-tab.png") %>
 
@@ -153,6 +149,8 @@ After updating the a9s RabbitMQ for PCF tile, run the Deployment Updater errand 
 <p class="note"><strong>Note</strong>: anynines recommends running the <a href="./installing.html#errands" target="_blank">smoke tests</a> before running this errand.</p>
 
 <p class="note"><strong>Note</strong>: To run the errand, you must know how to use the Ops Manager Director. For more information, see <a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare" target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
+
+To rund the Deployment Updater errand, do the following:
 
 1. SSH into the Ops Manager VM:
 <pre class="terminal">
@@ -222,7 +220,7 @@ Errand 'deployment-updater' completed successfully (exit code 0)
 Only PCF administrators can interact with the Backup Manager
 endpoints to trigger immediate backups and restores of backups.
 
-To backup, perform the following steps:
+To do a backup, complete the following steps:
 
 1. Navigate to the **Status** tab of the tile and record the IP address of one of the Backup Manager instances.
 
@@ -242,7 +240,7 @@ endpoint:
 $ curl backup<span>:53cr3t&commat;172.28.7.64:3000</span>/backup\_agent/backup -d "instance\_guid=1c16933a-892f-4fe0-b968-ea0bf90246c9"
 </pre>
 
-To restore, perform the following steps:
+To restore, do the following:
 
 3. Find the ID of the Backup and the
 ID of the instance by listing the instances:
@@ -270,12 +268,12 @@ This command outputs an array composed of objects like this one:
   "id": 1
 }
 </pre>
-In the example above, backups and restores that have been performed for
+The example above shows backups and restores that have been done for
 the instance with the instance_id `1c16933a-892f-4fe0-b968-ea0bf90246c9`. This
 ID corresponds to the instance GUID from PCF.
 
 4. Restore the backup by calling the **/backup\_agent/restores**
-endpoint with the backup\_id and instance\_id as data.
+endpoint and providing the backup\_id and instance\_id as shown below.
 <pre class="terminal">
 $ curl backup:53cr3t&commat;172.28.7.64:3000/backup\_agent/restores -d "backup\_id=5" -d "instance\_id=1"
 </pre>
