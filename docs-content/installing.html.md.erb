@@ -83,14 +83,14 @@ For more information, see [Understanding Lifecycle Errands](https://docs.pivotal
  * **Run BOSH Configurator**:
   This errand configures a9s BOSH for PCF so that it can provision RabbitMQ
   service instances. When enabled, this errand uploads the required releases in
-  the a9s BOSH Director. Disabling this errand may speed up the deployment of
+  the a9s BOSH Director. Disabling this errand might speed up the deployment of
   all tiles.
 
   <p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
  * **Run Template Uploader**:
   This errand is required to configure generic components that are included in a9s RabbitMQ for PCF with RabbitMQ  configurations.
-  Disabling this errand may speed up the deployment of all tiles.
+  Disabling this errand might speed up the deployment of all tiles.
 
   <p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
@@ -215,7 +215,7 @@ Started preparing deployment > Preparing deployment. Done (00:00:01)
 &nbsp;
 Errand 'deployment-updater' completed successfully (exit code 0)
 </pre>
-<p class="note"><strong>Note</strong>: Depending on the number of service instances, the Deployment Updater may take significant time to finish running. BOSH shows no logging output while the errand runs.</p>
+<p class="note"><strong>Note</strong>: Depending on the number of service instances, the Deployment Updater might take significant time to finish running. BOSH shows no logging output while the errand runs.</p>
 
 ##<a id='interacting-with-the-backup-manager'></a> Trigger Backups and Restores on Demand
 

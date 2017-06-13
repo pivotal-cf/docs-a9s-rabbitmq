@@ -16,7 +16,7 @@ owner: Partners
  This documentation describes the a9s RabbitMQ for Pivotal Cloud Foundry (PCF) tile. a9s RabbitMQ for PCF
  enables on-demand provisioning of VM-based, dedicated RabbitMQ servers and clusters. Developers can
  create instances of a RabbitMQ server or cluster using Apps Manager or the Cloud Foundry Command Line
- interface (cf CLI) and bind these instances to an application.
+ interface (cf CLI) and bind these instances to an app.
  Depending on your service plan, a service instance may be associated with a single, dedicated VM
  or a set of VMs consisting of multiple VMs containing a RabbitMQ cluster.
 
@@ -25,8 +25,8 @@ owner: Partners
 ## <a id='overview'></a>Overview
 
 When you run the cf CLI ```create-service a9s-rabbitmq``` command,
-PCF creates dedicated VMs for this service instance. This allows
-the best possible bad neighborhood protection.
+PCF creates dedicated VMs for this service instance. This provides
+protection from bad neighbors.
 
 RabbitMQ service instance provisioning, including VM orchestration, is entirely automated.
 This enables service instances to be highly isolated and shielded by infrastructure virtualization
@@ -34,7 +34,7 @@ mechanisms.
 
 Due to the on-demand provisioning on VMs, only existing service
 instances allocate infrastructure resources. These resources are released when service
-instances are destroyed. Using on-demand provisioning the number of
+instances are destroyed. Using on-demand, provisioning the number of
 service instances is not limited by design.
 
 Distributed across multiple infrastructure availability zones,  clustered data
@@ -49,13 +49,13 @@ a9s RabbitMQ for PCF includes the following key features:
 |---------|---------|
 | **On­-demand service instance provisioning** | a9s RabbitMQ for PCF deploys RabbitMQ instances automatically. Developers can provision a single-VM RabbitMQ server or a multi-VM RabbitMQ replica set using one command. |
 | **Service instance isolation** | Each RabbitMQ server runs on a dedicated VM to ensure bad-neighborhood protection and align with enterprise security requirements.<br/><br/>a9s RabbitMQ for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized apps.
-| **High availability** | a9s RabbitMQ for PCF ensures high availability using RabbitMQ replication.<br/><br/>The Consul-based internal DNS system provided by a9s Consul DNS for PCF ensures that the bound application always connects to a working node. |
+| **High availability** | a9s RabbitMQ for PCF ensures high availability using RabbitMQ replication.<br/><br/>The Consul-based internal DNS system provided by a9s Consul DNS for PCF ensures that the bound app always connects to a working node. |
 | **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation to ensure that it is configured properly. |
 | **Service instance capacity upgrade** | By updating your service plan, you can upgrade the RAM, CPU, and storage capacity for your RabbitMQ instances. |
 | **Logging and monitoring** | Each RabbitMQ service instance provides log messages and RabbitMQ-specific metrics to one or more `syslog/graphite` endpoints. You can configure the `syslog/graphite` endpoint to receive logging and monitoring information. |
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s RabbitMQ for PCF service instances to their latest version. |
 | **Backup Manager** | The Backup Manager does regular backup of your instances and offers endpoints to backup instantly and restore backups. |
-| **Service Guard** | The Service Guard creates Cloud Foundry security groups for your service instance VMs.<br /><br /> When the IP address of a service instance changes, the guard updates the security group. The Service Guard also restarts the application instances bound to the affected service instance. **The instances of one application are restarted one by one to avoid downtime.**|
+| **Service Guard** | The Service Guard creates Cloud Foundry security groups for your service instance VMs.<br /><br /> When the IP address of a service instance changes, the guard updates the security group. The Service Guard also restarts the application instances bound to the affected service instance. **The instances of one app are restarted one by one to avoid downtime.**|
 
 ### <a id='video'></a>Video Overview of a9s RabbitMQ for PCF
 

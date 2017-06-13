@@ -3,12 +3,12 @@ title: Using a9s RabbitMQ for PCF
 owner: Partners
 ---
 
-This topic describes how to use a9s RabbitMQ for PCF after it has been successfully installed. For more information, see the [Installing and Configuring a9s RabbitMQ for PCF](./installing.html) topic.
+This topic describes how to use a9s RabbitMQ for PCF after it has been successfully installed. For more information, see [Installing and Configuring a9s RabbitMQ for PCF](./installing.html).
 
-##<a id='using'></a>Use a9s RabbitMQ for PCF with an Application
+##<a id='using'></a>Use a9s RabbitMQ for PCF with an App
 
-To use a9s RabbitMQ for PCF with an application, create a service instance and bind the service instance
-to your application. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
+To use a9s RabbitMQ for PCF with an app, create a service instance and bind the service instance
+to your app. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
 
 ###<a id='view-service'></a> View the a9s RabbitMQ for PCF Service
 
@@ -32,25 +32,25 @@ To provision a RabbitMQ database, run `cf create-service`. For example:
 $ cf create-service a9s-rabbitmq36 rabbitmq-single-small my-rabbitmq-service
 </pre>
 
-Depending on your infrastructure and service broker utilization, it may take several minutes to create the service instance.
+Depending on your infrastructure and service broker utilization, it might take several minutes to create the service instance.
 
 Run the `cf services` command to view the creation status. This command displays a list of all your service instances. To view the status of a specific service instance, run `cf service NAME-OF-YOUR-SERVICE`.
 
-###<a id='bind-instance'></a> Bind an Application to a Service Instance
+###<a id='bind-instance'></a> Bind an App to a Service Instance
 
-After your databse is created, run `cf bind-service` to bind the service to your application:
+After your databse is created, run `cf bind-service` to bind the service to your app:
 
 <pre class="terminal">
 $ cf bind-service a9s-rabbitmq-app my-rabbitmq-service
 </pre>
 
-###<a id='restage'></a> Restage or Restart Your Application
+###<a id='restage'></a> Restage or Restart Your App
 
-To enable your application to access the service instance, run `cf restage` or `cf restart` to restage or restart your application.
+To enable your app to access the service instance, run `cf restage` or `cf restart` to restage or restart your app.
 
 ##<a id='credentials'></a> Obtain Credentials for Accessing Your Service Instance
 
-After a service instance is bound to an application, PCF stores the credentials of your RabbitMQ database in the environment variables of the app. Run `cf env APP-NAME` to display the environment variables.
+After a service instance is bound to an app, PCF stores the credentials of your RabbitMQ database in the environment variables of the app. Run `cf env APP-NAME` to display the environment variables.
 
 You can find the credentials in the <a href="http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES" target="_blank">VCAP_SERVICES</a> key.
 
@@ -111,11 +111,11 @@ name                  service          plan                    bound apps       
 my-rabbitmq-service   a9s-rabbitmq36   rabbitmq-single-small   a9s-rabbitmq-app   create succeeded
 </pre>
 
-This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app` application.
+This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app` app.
 
 ###<a id=''></a> Unbind a Service Instance
 
-Run `cf unbind-service` to unbind the service instance from your application.
+Run `cf unbind-service` to unbind the service instance from your app.
 
 <pre class="terminal">
 $ cf unbind-service a9s-rabbitmq-app my-rabbitmq-service
@@ -130,12 +130,12 @@ Run `cf delete-service INSTANCE-NAME` to delete the service instance:
 $ cf delete-service my-rabbitmq-service
 </pre>
 
-It may take several minutes to delete the service. Deleting a service deprovisions the corresponding infrastructure resources.
+It might take several minutes to delete the service. Deleting a service deprovisions the corresponding infrastructure resources.
 Run the `cf services` command to view the deletion status.
 
 ##<a id='upgrade-service-plan'></a> Upgrade the Service Instance to another Service Plan
 
-Once created, you can upgrade your service instance to another, larger service plan. A larger service plan provides more CPU, RAM and storage. For more information, see the  <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#update_service" target="_blank">Update a Service Instance</a> of the _Managing Service Instances with the cf CLI_ topic.
+Once created, you can upgrade your service instance to another, larger service plan. A larger service plan provides more CPU, RAM and storage. For more information, see the  <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html#update_service" target="_blank">Update a Service Instance</a> of _Managing Service Instances with the cf CLI_.
 
 <pre class="terminal">
 $ cf update-service my-rabbitmq-service -p a-bigger-plan
