@@ -4,11 +4,8 @@ owner: Partners
 ---
 
 This documentation describes the a9s RabbitMQ for Pivotal Cloud Foundry (PCF) tile. a9s RabbitMQ for PCF
-enables on-demand provisioning of VM-based, dedicated RabbitMQ servers and clusters. Developers can
-create instances of a RabbitMQ server or cluster using Apps Manager or the Cloud Foundry Command Line
-interface (cf CLI) and bind these instances to an app.
-Depending on your service plan, a service instance may be associated with a single, dedicated VM
-or a set of VMs consisting of multiple VMs containing a RabbitMQ cluster.
+enables on-demand provisioning of VM-based dedicated RabbitMQ servers and clusters. Developers can create clustered and single node RabbitMQ service instances, using Apps Manager or the Cloud Foundry Command Line Interface, and bind them to apps.
+A service instance may be associated with a single dedicated VM or a cluster spread across multiple VMs. You can choose, between single VM and clustered RabbitMQ services instances, with service plans.
 
 <%= image_tag("a9s-rabbitmq.png") %>
 
