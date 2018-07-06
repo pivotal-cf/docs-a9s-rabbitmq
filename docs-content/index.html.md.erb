@@ -2,25 +2,12 @@
 title: a9s RabbitMQ for PCF
 owner: Partners
 ---
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-     }
-     </style>
 
+This documentation describes the a9s RabbitMQ for Pivotal Cloud Foundry (PCF) tile. a9s RabbitMQ for PCF
+enables on-demand provisioning of VM-based dedicated RabbitMQ servers and clusters. Developers can create clustered and single node RabbitMQ service instances, using Apps Manager or the Cloud Foundry Command Line Interface, and bind them to apps.
+A service instance may be associated with a single dedicated VM or a cluster spread across multiple VMs. You can choose, between single VM and clustered RabbitMQ services instances, with service plans.
 
- This documentation describes the a9s RabbitMQ for Pivotal Cloud Foundry (PCF) tile. a9s RabbitMQ for PCF
- enables on-demand provisioning of VM-based, dedicated RabbitMQ servers and clusters. Developers can
- create instances of a RabbitMQ server or cluster using Apps Manager or the Cloud Foundry Command Line
- interface (cf CLI) and bind these instances to an app.
- Depending on your service plan, a service instance may be associated with a single, dedicated VM
- or a set of VMs consisting of multiple VMs containing a RabbitMQ cluster.
-
-<%= image_tag("a9s-rabbitmq-tile.png") %>
+<%= image_tag("a9s-rabbitmq.png") %>
 
 ## <a id='overview'></a>Overview
 
@@ -41,7 +28,7 @@ Distributed across multiple infrastructure availability zones,  clustered data
 service plans enable short failover times and are resilient against
 failures of individual infrastructure hosts or entire availability zones.
 
-### <a id="features"></a>Current Features
+### <a id="currentfeatures"></a>Current Features
 
 a9s RabbitMQ for PCF includes the following key features:
 
@@ -56,13 +43,15 @@ a9s RabbitMQ for PCF includes the following key features:
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s RabbitMQ for PCF service instances to their latest version. |
 | **Backup Manager** | The Backup Manager does regular backups of your instances, and offers endpoints to backup instantly and restore backups. |
 | **Service Guard** | The Service Guard creates Cloud Foundry security groups for your service instance VMs.<br /><br /> When the IP address of a service instance changes, the guard updates the security group. The Service Guard also restarts the application instances bound to the affected service instance. **The instances of one app are restarted one by one to avoid downtime.**|
+| **Service Dashboard** | The Service Dashboard provides single sign on and lets the user easily trigger backups. |
+| **New RabbitMQ Versions** | Added a9s RabbitMQ 3.6 and 3.7 |
 
 ### <a id='video'></a>Video Overview of a9s RabbitMQ for PCF
 
 The following video provides an overview of how a9s RabbitMQ for PCF works.
 
 <p>
-  <iframe src="https://www.youtube.com/embed/yZOI_wQ5eTo"
+  <iframe src="https://www.youtube.com/embed/kNdWIS6kWqw"
     width="656" height="372" frameborder="0" allowfullscreen></iframe>
 </p>
 
@@ -74,42 +63,35 @@ The following table provides version and version-support information about a9s R
     <th>Element</th>
     <th>Details</th>
     <tr>
-        <td>Tile Version</td>
-        <td>v1.0.0</td>
+        <td>Version</td>
+        <td>v2.0.1</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>June 9, 2017</td>
-    </tr>
-    <tr>
-        <td>Software component version</td>
-        <td>v3.6.6</td>
+        <td>July 6, 2018</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.7.x, v1.8.x, v1.9.x, v1.10.x</td>
+        <td>v1.12.x, v2.0.x, and v2.1.x</td>
     </tr>
     <tr>
-        <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.7.x, v1.8.x, v1.9.x, v1.10.x</td>
+        <td>Compatible Pivotal Application Service version(s):</td>
+        <td>v1.12.x, v2.0.x, and v2.1.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>AWS, OpenStack, and vSphere</td>
-    </tr>
-    <tr>
-        <td>IPsec support</td>
-        <td>No</td>
+        <td>AWS, Azure, GCP, OpenStack, and Vsphere</td>
     </tr>
 </table>
+\* As of PCF v2.0, <em>Elastic Runtime</em> is renamed <em>Pivotal Application Service (PAS)</em>.
+
+* This is a major release. Upgrades from a9s RabbitMQ for PCF v1.x are not supported. If you previously installed a9s RabbitMQ for PCF v1.x, uninstall it and install the latest version
 
 ## <a id="reqs"></a>Requirements
 
 To install and use a9s RabbitMQ for PCF, you must install the following products and tiles:
 
-* Elastic Runtime, v1.7 or later
-* [a9s Consul DNS](https://network.pivotal.io/products/a9s-consul) for PCF, v1.0.0 or later
-* [a9s BOSH](https://network.pivotal.io/products/a9s-bosh) for PCF, v1.0.0 or later
+* Pivotal Application Service (formerly Elastic Runtime) v1.12 or later
 
 For more information, see [Installing and Configuring a9s RabbitMQ for PCF](./installing.html).
 
