@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring the a9s RabbitMQ for PCF
+title: Installing and Configuring a9s RabbitMQ for PCF
 owner: Partners
 ---
 
@@ -109,7 +109,7 @@ Use **Errands** to configure the lifecycle errands that run when you install or 
   <p class="note warning"><strong>WARNING</strong>: This is an absolutly destructive task and can't be undone. All VMs of the service instances will be deleted irrecoverably. In the case a service instance is bound to an app or service keys are existing, the errand will fail.</p>
 
  * **Run Broker Deregistrar**:
-  This will deregister the a9s RabbitMQ for PCF service broker in Elastic Runtime. This errand removes the a9s RabbitMQ service from the Marketplace.
+  This will unregister the a9s RabbitMQ for PCF service broker in Pivotal Application Service. This errand removes the a9s RabbitMQ service from the Marketplace.
 
 
 ###<a id='resource-config'></a> Configure Resources
