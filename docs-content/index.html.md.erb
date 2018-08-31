@@ -3,51 +3,41 @@ title: a9s RabbitMQ for PCF
 owner: Partners
 ---
 
-This documentation describes the a9s RabbitMQ for Pivotal Cloud Foundry (PCF) tile. a9s RabbitMQ for PCF
-enables on-demand provisioning of VM-based dedicated RabbitMQ servers and clusters. Developers can create clustered and single node RabbitMQ service instances, using Apps Manager or the Cloud Foundry Command Line Interface, and bind them to apps.
-A service instance may be associated with a single dedicated VM or a cluster spread across multiple VMs. You can choose, between single VM and clustered RabbitMQ services instances, with service plans.
+This documentation describes the a9s RabbitMQ for Pivotal Cloud Foundry (PCF) tile. a9s RabbitMQ for PCF enables on-demand provisioning of VM-based dedicated RabbitMQ servers and clusters. Developers can create clustered and single node RabbitMQ service instances, using Apps Manager or the Cloud Foundry Command Line Interface, and bind them to apps. A service instance may be associated with a single dedicated VM or a cluster spread across multiple VMs. You can choose between single VM and clustered RabbitMQ services instances with service plans.
 
 <%= image_tag("a9s-rabbitmq.png") %>
 
-## <a id='overview'></a>Overview
 
-When you run the cf CLI ```create-service a9s-rabbitmq``` command,
-PCF creates dedicated VMs for this service instance. This provides
-protection from bad neighbors.
+## <a id='overview'></a> Overview
 
-RabbitMQ service instance provisioning, including VM orchestration, is entirely automated.
-This enables service instances to be highly isolated and shielded by infrastructure virtualization
-mechanisms.
+When you run the cf CLI `create-service a9s-rabbitmq` command, PCF creates dedicated VMs for this service instance. This provides protection from bad neighbors.
 
-Due to the on-demand provisioning on VMs, only existing service
-instances allocate infrastructure resources. These resources are released when service
-instances are destroyed. Using on-demand, provisioning the number of
-service instances is not limited by design.
+RabbitMQ service instance provisioning, including VM orchestration, is entirely automated. This enables service instances to be highly isolated and shielded by infrastructure virtualization mechanisms.
 
-Distributed across multiple infrastructure availability zones,  clustered data
-service plans enable short failover times and are resilient against
-failures of individual infrastructure hosts or entire availability zones.
+Due to the on-demand provisioning on VMs, only existing service instances allocate infrastructure resources. These resources are released when service instances are destroyed. Using on-demand, provisioning the number of service instances is not limited by design.
 
-### <a id="currentfeatures"></a>Current Features
+Distributed across multiple infrastructure availability zones, clustered data service plans enable short failover times and are resilient against failures of individual infrastructure hosts or entire availability zones.
+
+### <a id="currentfeatures"></a> Current Features
 
 a9s RabbitMQ for PCF includes the following key features:
 
 | Feature | Description |
 |---------|---------|
-| **On­-demand service instance provisioning** | a9s RabbitMQ for PCF deploys RabbitMQ instances automatically. Developers can provision a single-VM RabbitMQ server or a multi-VM RabbitMQ replica set using one command. |
+| **On-demand service instance provisioning** | a9s RabbitMQ for PCF deploys RabbitMQ instances automatically. Developers can provision a single-VM RabbitMQ server or a multi-VM RabbitMQ replica set using one command. |
 | **Service instance isolation** | Each RabbitMQ server runs on a dedicated VM to ensure bad-neighborhood protection and align with enterprise security requirements.<br/><br/>a9s RabbitMQ for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized apps.
 | **High availability** | a9s RabbitMQ for PCF ensures high availability using RabbitMQ replication.<br/><br/>The Consul-based internal DNS system provided by a9s Consul DNS for PCF ensures that the bound app always connects to a working node. |
 | **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation to ensure that it is configured properly. |
 | **Service instance capacity upgrade** | By updating your service plan, you can upgrade the RAM, CPU, and storage capacity for your RabbitMQ instances. |
 | **Logging and monitoring** | Each RabbitMQ service instance provides log messages and RabbitMQ-specific metrics to one or more `syslog/graphite` endpoints. You can configure the `syslog/graphite` endpoint to receive logging and monitoring information. |
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s RabbitMQ for PCF service instances to their latest version. |
-| **Backup Manager** | The Backup Manager does regular backups of your instances, and offers endpoints to backup instantly and restore backups. |
-| **Service Guard** | The Service Guard creates Cloud Foundry security groups for your service instance VMs.<br /><br /> When the IP address of a service instance changes, the guard updates the security group. The Service Guard also restarts the application instances bound to the affected service instance. **The instances of one app are restarted one by one to avoid downtime.**|
+| **Backup Manager** | The Backup Manager does regular backups of your instances, and offers endpoints to back up instantly and restore backups. |
+| **Service Guard** | The Service Guard creates Cloud Foundry security groups for your service instance VMs.<br/><br/> When the IP address of a service instance changes, the guard updates the security group. The Service Guard also restarts the application instances bound to the affected service instance. **The instances of one app are restarted one by one to avoid downtime.**|
 | **Service Dashboard** | The Service Dashboard provides single sign on and lets the user easily trigger backups. |
-| **Syslog Endpoints for Instances** | In the tile a default endpoint for syslog and graphite can be configured for each service instances which is greated by the end user. |
-| **New RabbitMQ Versions** | Added a9s RabbitMQ 3.6 and 3.7 |
+| **Syslog Endpoints for Instances** | In the tile, a default endpoint for syslog and graphite can be configured for each service instance created. |
+| **New RabbitMQ Versions** | Added a9s RabbitMQ v3.6 and v3.7. |
 
-### <a id='video'></a>Video Overview of a9s RabbitMQ for PCF
+### <a id='video'></a> Video Overview of a9s RabbitMQ for PCF
 
 The following video provides an overview of how a9s RabbitMQ for PCF works.
 
@@ -56,7 +46,10 @@ The following video provides an overview of how a9s RabbitMQ for PCF works.
     width="656" height="372" frameborder="0" allowfullscreen></iframe>
 </p>
 
-## <a id="snapshot"></a>Product Snapshot
+
+## <a id="snapshot"></a> Product Snapshot
+
+<p class='note'><strong>Note:</strong> As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS).</p>
 
 The following table provides version and version-support information about a9s RabbitMQ for PCF:
 
@@ -84,11 +77,10 @@ The following table provides version and version-support information about a9s R
         <td>AWS, Azure, GCP, OpenStack, and Vsphere</td>
     </tr>
 </table>
-\* As of PCF v2.0, <em>Elastic Runtime</em> is renamed <em>Pivotal Application Service (PAS)</em>.
+* This is a major release. Upgrades from a9s RabbitMQ for PCF v1.x are not supported. If you previously installed a9s RabbitMQ for PCF v1.x, uninstall it and install the latest version.
 
-* This is a major release. Upgrades from a9s RabbitMQ for PCF v1.x are not supported. If you previously installed a9s RabbitMQ for PCF v1.x, uninstall it and install the latest version
 
-## <a id="reqs"></a>Requirements
+## <a id="reqs"></a> Requirements
 
 To install and use a9s RabbitMQ for PCF, you must install the following products and tiles:
 
@@ -96,19 +88,16 @@ To install and use a9s RabbitMQ for PCF, you must install the following products
 
 For more information, see [Installing and Configuring a9s RabbitMQ for PCF](./installing.html).
 
-## <a id="feedback"></a>Feedback and Support
 
-a9s RabbitMQ for PCF is an automation toolset for open source RabbitMQ.
-The entire anynines team can help your team  get started and be successful.
-Technical support, including a service level agreement, is available with a commercial license.
+## <a id="feedback"></a> Feedback and Support
 
-If your company has specific RabbitMQ administration policies or configuration best practises,
-the anynines team is happy to incorporate them, if applicable.
-Third-party RabbitMQ support organizations are also welcome to assist.
+a9s RabbitMQ for PCF is an automation toolset for open source RabbitMQ. The entire anynines team can help your team get started and be successful. Technical support, including a service level agreement, is available with a commercial license.
 
-Contributions are welcome and will be investigated by the anynines team.
-Send any bugs, feature requests, or questions to <a href="mailto:dssupport@anynines.com">dssupport@anynines.com</a>.
+If your company has specific RabbitMQ administration policies or configuration best practices, the anynines team is happy to incorporate them, if applicable. Third-party RabbitMQ support organizations are also welcome to assist.
 
-## <a id='license'></a>License
+Contributions are welcome. Send any bugs, feature requests, or questions to [dssupport@anynines.com](mailto:dssupport@anynines.com).
 
-Contact our <a href="mailto:dssupport@anynines.com">sales team</a> to learn more about commercial licenses and support.
+
+## <a id='license'></a> License
+
+Contact our [sales team](mailto:dssupport@anynines.com) to learn more about commercial licenses and support.
