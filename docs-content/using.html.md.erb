@@ -6,13 +6,17 @@ owner: Partners
 This topic describes how developers use a9s RabbitMQ.
 
 
-##  <a id='use-a9s-rabbimq-with-an-application'></a> Use a9s RabbitMQ with an App
+##  <a id='use-a9s-rabbimq-with-an-app'></a> Use a9s RabbitMQ with an App
 
-To use a9s RabbitMQ with an application, create a service instance and bind the service instance to your app. For more information about managing service instances, see [Managing Service Instances with the cf CLI](https://docs.cloudfoundry.org/devguide/services/managing-services.html).
+To use a9s RabbitMQ with an app, create a service instance and bind the service
+instance to your app. For more information about managing service instances, see
+[Managing Service Instances with the cf CLI](https://docs.cloudfoundry.org/devguide/services/managing-services.html).
 
 ### <a id='view-the-a9s-rabqitmw-service'></a> View the a9s RabbitMQ Service
 
-After the tile is installed, you can see the `a9s-rabbitmq` and its service plans appear in your PCF marketplace. Run `cf marketplace` to see the service listing:
+After the tile is installed, you can see the `a9s-rabbitmq` and its service plans
+appear in your PCF marketplace. Run `cf marketplace` to see the service listing:
+
 ```bash
 $ cf marketplace
 Getting services from marketplace in org test / space test as admin...
@@ -30,26 +34,33 @@ To provision a RabbitMQ database, run `cf create-service`. For example:
 $ cf create-service a9s-rabbitmq36 rabbitmq-single-small my-rabbitmq-service
 ```
 
-Depending on your infrastructure and service broker utilization, it might take several minutes to create the service instance.
+Depending on your infrastructure and service broker utilization, it might take
+several minutes to create the service instance.
 
-Run `cf services` to view the creation status. This command displays a list of all your service instances. To view the status of a specific service instance, run `cf service NAME-OF-YOUR-SERVICE`.
+Run `cf services` to view the creation status. This command displays a list of all
+your service instances. To view the status of a specific service instance, run
+`cf service NAME-OF-YOUR-SERVICE`.
 
-### <a id='bind-an-application-to-a-service-instance'></a> Bind an Application to a Service Instance
+### <a id='bind-an-app-to-a-service-instance'></a> Bind an App to a Service Instance
 
-After your database is created, run `cf bind-service` to bind the service to your application:
+After your database is created, run `cf bind-service` to bind the service to your
+app:
 
 ```bash
 $ cf bind-service a9s-rabbitmq-app my-rabbitmq-service
 ```
 
-### <a id='restage-or-restart-your-application'></a> Restage or Restart Your Application
+### <a id='restage-or-restart-your-app'></a> Restage or Restart Your App
 
-To enable your appliation to access the service instance, run `cf restage` or `cf restart` to restage or restart your app.
+To enable your appliation to access the service instance, run `cf restage` or
+`cf restart` to restage or restart your app.
 
 ### <a id='obtain-service-instance-access-credentials'></a> Obtain Service Instance Access Credentials
 
-After a service instance is bound to an application, the credentials of your RabbitMQ database are stored in the environment variables of the application. Run `cf env APP-NAME` to display the environment variables.
-
+After a service instance is bound to an app, the credentials of your RabbitMQ
+database are stored in the environment variables of the app. Run `cf env APP-NAME`
+to display the environment variables.
+&nbsp;
 You can find the credentials in the [VCAP_SERVICES](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES) key.
 
 ```bash
@@ -102,13 +113,22 @@ System-Provided:
 ...
 ```
 
-You can use the host, username, and password values to connect to your database with a RabbitMQ client.
-
+You can use the host_ips, username, and password values to connect to your database
+with a RabbitMQ client.
+&nbsp;
+a9s RabbitMQ for PCF comes with its own Consul cluster to provide hostname resolving.
+When your DNS is configured to resolve the a9s RabbitMQ for PCF service instance
+domains you can make use of `hosts` or `uri`.
+&nbsp;
+<p class="note"><strong>Note:</strong> For more information, see
+[Name Resolving With Consul](./name-resolving.html#name-resolving-with-consul).</p>
 
 ## <a id='delete-an-a9s-rabbitmq-service-instance'></a> Delete an a9s RabbitMQ Service Instance
 
-<p class='note warning'><strong>WARNING:</strong> Before deleting a service instance, you must back up data stored in your database. This operation cannot be undone and all the data is lost when the service is deleted.</p>
-
+<p class='note warning'><strong>WARNING:</strong> Before deleting a service instance,
+you must back up data stored in your database. This operation cannot be undone and
+all the data is lost when the service is deleted.</p>
+&nbsp;
 Before you can delete a service instance, you must unbind it from all apps.
 
 ### <a id='list-available-services'></a> List Available Services
@@ -125,7 +145,7 @@ name                  service          plan                    bound apps       
 my-rabbitmq-service   a9s-rabbitmq36   rabbitmq-single-small   a9s-rabbitmq-app   create succeeded
 ```
 
-This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app` application.
+This example shows that `my-rabbitmq-service` is bound to the `a9s-rabbitmq-app` app.
 
 ### <a id='unbind-a-service-instance'></a> Unbind a Service Instance
 
@@ -137,24 +157,30 @@ $ cf unbind-service a9s-rabbitmq-app my-rabbitmq-service
 
 ### <a id='delete-a-service-instance'></a> Delete a Service Instance
 
-After unbinding the service, it is no longer bound to an app. Run `cf delete-service` to delete the service:
+After unbinding the service, it is no longer bound to an app. Run `cf delete-service`
+to delete the service:
 
 ```bash
 $ cf delete-service my-rabbitmq-service
 ```
 
-It may take several minutes to delete the service. Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
-
+It may take several minutes to delete the service. Deleting a service de-provisions
+the corresponding infrastructure resources. Run the `cf services` command to view
+the deletion status.
 
 ## <a id='upgrade-the-service-instance-to-another-service-plan'></a> Upgrade the Service Instance to Another Service Plan
 
-Once created, you can upgrade your service instance to another, larger service plan. A larger service plan provides more CPU, RAM and storage. For more information, see the  [Update a Service Instance](https://docs.cloudfoundry.org/devguide/services/managing-services.html#update_service) of the _Managing Service Instances with the cf CLI_ topic.
+Once created, you can upgrade your service instance to another, larger service plan.
+A larger service plan provides more CPU, RAM and storage. For more information, see
+the  [Update a Service Instance](https://docs.cloudfoundry.org/devguide/services/managing-services.html#update_service)
+of the _Managing Service Instances with the cf CLI_ topic.
 
 ```bash
 $ cf update-service my-rabbitmq-service -p a-bigger-plan
 ```
 
-Depending on the one you are currently using, the plans you can upgrade to are as follows:
+Depending on the one you are currently using, the plans you can upgrade to are
+as follows:
 
 | Base Plan | Target Plan |
 |------|-----------|
@@ -174,9 +200,15 @@ Depending on the one you are currently using, the plans you can upgrade to are a
 
 ## <a id='add-a-graphite-endpoint'></a> Add a Graphite Endpoint
 
-If you want to monitor your service with Graphite, you can set an endpoint to where to information will be sent with the `cf update-service` command. This command expects the [-c flag](https://docs.cloudfoundry.org/devguide/services/managing-services.html#arbitrary-params-binding) and a JSON string containing the `graphite` and `metrics_prefix` keys.
-
-Depending on your Graphite provider, the `metrics_prefix` might require that each metric must start with an API key in their name. You can also change the interval within the data is send to the endpoint. To do this, modify `interval`; the default is 10s.
+If you want to monitor your service with Graphite, you can set an endpoint to
+where the information is sent with the `cf update-service` command. This
+command expects the [-c flag](https://docs.cloudfoundry.org/devguide/services/managing-services.html#arbitrary-params-binding)
+and a JSON string containing the `graphite` and `metrics_prefix` keys.
+&nbsp;
+Depending on your Graphite provider, the `metrics_prefix` might require that each
+metric must start with an API key in their name. You can also change the interval
+within the data is send to the endpoint. To do this, modify `interval`; the default
+is 10s.
 
 ```bash
 $ cf update-service my-rabbitmq-service -c '{ "graphite": ["yourspace.your-graphite-endpoint.com:12345"], "metrics_prefix": "your-api-key.my-cluster-rabbitmq", "interval": "5"}'
@@ -184,18 +216,24 @@ $ cf update-service my-rabbitmq-service -c '{ "graphite": ["yourspace.your-graph
 
 ## <a id='add-a-syslog-endpoint'></a> Add a Syslog Endpoint
 
-The `cf update-service` command used with the [-c flag](https://docs.cloudfoundry.org/devguide/services/managing-services.html#arbitrary-params-binding) can let you stream your syslog to a third-party service. In this case, the command expects a JSON string containing the `syslog` key. You can also change the interval for the syslog with the same key than for the Graphite endpoint `interval`.
+The `cf update-service` command used with the [-c flag](https://docs.cloudfoundry.org/devguide/services/managing-services.html#arbitrary-params-binding)
+can let you stream your logs to a third-party service. In this case, the command
+expects a JSON string containing the `syslog` key. You can also change the interval
+for the syslog with the same key than for the Graphite endpoint `interval`.
 
 ```bash
 $ cf update-service my-rabbitmq-service -c '{ "syslog": ["logs4.your-syslog-endpoint.com:54321"], "interval": "5" }'
 ```
 
 
-## <a id='cloud-foundry-application-security-groups'></a> Cloud Foundry Application Security Groups
+## <a id='cloud-foundry-app-security-groups'></a> Cloud Foundry App Security Groups
 
 This section describes how to check whether a security group was created.
-
-Each a9s Data Service will automatically create and update Cloud Foundry security groups in order to protect service instances to be accessed by apps not running in the same Cloud Foundry applications space. To understand Security Groups, see [Understanding Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
+&nbsp;
+Each a9s Data Service automatically creates and updates Cloud Foundry security groups
+in order to protect service instances to be accessed by apps not running in the
+same Cloud Foundry apps space. To understand Security Groups, see
+[Understanding App Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
 
 ### <a id='get-service-instance-guid'></a> Get Service Instance GUID
 
@@ -210,7 +248,7 @@ ca16f111-5073-40b7-973a-156c75dd3028
 
 To see all available security groups, run `cf security-groups`.
 
-```
+```bash
 $cf security-groups
 Getting security groups as demo@anynines.com
 OK
@@ -223,67 +261,19 @@ OK
 #4   guard_ca16f111-5073-40b7-973a-156c75dd3028   demonstrations   demo
 ```
 
-In the above example, you can see a security group with the name `guard_ca16f111-5073-40b7-973a-156c75dd3028` was successfully created.
+In the above example, you can see a security group with the name
+`guard_ca16f111-5073-40b7-973a-156c75dd3028` was successfully created.
 
-<p class='note'><strong>Note:</strong> In some circumstances, the connection between the app and the service instance is not possible. In this case, check to see if a security group was created.</p>
+<p class='note'><strong>Note:</strong> In some circumstances, the connection
+between the app and the service instance is not possible. In this case, check
+to see if a security group was created.</p>
 
 
 ## <a id='backup-and-restore-service-instances'></a> Back Up and Restore Service Instances
 
 a9s RabbitMQ provides an easy way to create backups and restore if needed.
-
-### <a id='get-dashboard-address-login-and-authorize'></a> Get Dashboard Address, Log In, and Authorize
-
-1. Grap the dashboard URL with `cf service SERVICE-NAME`.
-  ```bash
-  $cf service my-rabbitmq
-
-  Service instance: my-rabbitmq
-  Service: a9s-rabbitmq
-  Bound apps:
-  Tags:
-  Plan: rabbitmq-single-small
-  Description: This is a service creating and managing dedicated RabbitMQ service instances and clusters, powered by the anynines Service Framework
-  Documentation url:
-  Dashboard: https://a9s-rabbitmq-dashboard.aws.ie.a9s.eu/service-instances/ca16f111-5073-40b7-973a-156c75dd3028
-
-  Last Operation
-  Status: update succeeded
-  Message:
-  Started: 2017-10-26T08:28:38Z
-  Updated: 2017-10-26T08:28:38Z
-  ```
-
-1. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
-![authentication-page](images/authentication-page.png)
-
-1. Click **Authorize** to approve the authorization request:
-![authorization-page](images/authorization-page.png)
-
-### <a id='perform-a-backup'></a> Perform a Backup
-
-On the dashboard, you can trigger a backup by clicking **Trigger backup**.
-
-![service-dashboard](images/service-dashboard.png)
-
-After a short period of time, the backup is queued.
-
-![service-dashboard](images/service-dashboard-bkp-triggered.png)
-
-<p class='note'><strong>Note:</strong> Depending on the size of the data, the backup may take some time.</p>
-
-### <a id='restore-a-backup'></a> Restore a Backup
-
-1. Open the dashboard again and select the backup you would like to restore.
-
-1. Click **Restore**. After a short period of time, the restore is triggered.
-
-![service-dashboard](images/service-dashboard-restore-triggered.png)
-
-<p class='notes'><strong>Note:</strong> Depending on the size of the data, the restore may take some time.</p>
-
-![service-dashboard](images/service-dashboard-final.png)
-
+For a more detailed description see the [a9s Service Dashboard](a9s-service-dashboard.html)
+documentation.
 
 ## <a id='use-rabbitmq-plugins'></a> Use RabbitMQ Plugins
 
@@ -301,49 +291,59 @@ a9s RabbitMQ allows you to enable the following RabbitMQ plugins:
 
 ### <a id='installation'></a> Installation
 
-You can install RabbitMQ plugins by running `cf create-service` and `cf update-service` using additional configuration parameters.
+You can install RabbitMQ plugins by running `cf create-service` and `cf update-service`
+using additional configuration parameters.
 
-```shell
+```bash
 $ cf create-service a9s-rabbitmq36 rabbitmq-single-small my-rabbitmq-service -c '{ "plugins": ["rabbitmq_shovel", "rabbitmq_shovel_management"] }'
 $ cf update-service my-rabbitmq-service -c '{ "plugins": ["rabbitmq_shovel", "rabbitmq_shovel_management"] }'
 ```
 
 ## <a id='create-rabbitmq-users'></a> Create RabbitMQ Users
 
-a9s RabbitMQ allows you to create new users with different roles (permissions) by creating [service keys](https://docs.cloudfoundry.org/devguide/services/service-keys.html).
+a9s RabbitMQ allows you to create new users with different roles (permissions) by
+creating [service keys](https://docs.cloudfoundry.org/devguide/services/service-keys.html).
 
 The possible roles are:
 * management
 * policymaker
 * monitoring
 * administrator
-
-You can read more about RabbitMQ roles and permissions in the [Permissions](https://www.rabbitmq.com/management.html#permissions) section of the _Management Plugin_ topic of the RabbitMQ documentation.
+&nbsp;
+You can read more about RabbitMQ roles and permissions in the [Permissions](https://www.rabbitmq.com/management.html#permissions)
+section of the _Management Plugin_ topic of the RabbitMQ documentation.
 
 ### <a id='create-a-new-role'></a> Create a New Role
 
-You can create a new user with specific permissions by giving the `role` the following custom parameter. This parameter receives an array of roles:
+You can create a new user with specific permissions by giving the `role` the
+following custom parameter. This parameter receives an array of roles:
 
-```shell
+```bash
 $ cf create-service-key my-rabbitmq-service my-key -c '{"roles": ["administrator", "management"]}'
 ```
 
+## <a id='make-a-service-instance-locally-available'></a> Make a Service Instance Locally Available
 
-## <a id='use-rabbitmq-management-dashboard'></a> Use RabbitMQ Management Dashboard
+You can access any of the a9s Data Services locally and connect with a local
+client to the service for any purpose, such as debugging. Cloud Foundry provides a
+smart way to create SSH forward tunnels through a pushed app. For more information
+about this feature, see the [Accessing Apps with SSH](https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-apps.html)
+section of the Cloud Foundry documentation.
+&nbsp;
+First, you must have an app bound to the service. To do this, see
+[Bind an App to a Service Instance](#bind-an-app-to-a-service-instance).
 
-a9s RabbitMQ has management dashboard support enabled. The dashboard is running on the service instance VM, so it is not possible to open the dashboard in your browser directly. Cloud Foundry provides a smart way to create SSH forward tunnels through a pushed application. For more information, see the [Accessing Apps with SSH](https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-apps.html) section of the Cloud Foundry documentation.
-
-First, you must have an application bound to the service. For more information, see [Bind an Application to a Service Instance](#bind-an-application-to-a-service-instance).
-
-<p class='note'><strong>Note:</strong> `cf ssh` support must be enabled in the platform. Consult your administrator to ensure it is enabled.</p>
+<p class='note'><strong>Note:</strong> `cf ssh` support must be enabled in the
+platform. Consult your administrator to ensure it is enabled.</p>
 
 ### <a id='get-dashboard-url-and-credentials'></a> Get Dashboard URL and Credentials
 
-Use the hostname of the service and the user credentials obtained in [Obtain Service Instance Access Credentials](#obtain-service-instance-access-credentials) for this procedure.
+Use the hostname of the service and the user credentials obtained in
+[Obtain Service Instance Access Credentials](#obtain-service-instance-access-credentials) for this procedure.
 
 ```bash
-$ cf env rabbitmq-app
-Getting env variables for app rabbitmq-app in org phartz / space develop as admin...
+$ cf env a9s-rabbitmq-app
+Getting env variables for app a9s-rabbitmq-app in org test / space test as admin...
 OK
 
 System-Provided:
@@ -388,76 +388,16 @@ System-Provided:
     ]
   }
 }
-```
-
-The hostname `d67901c.service.dc1.a9svs`, username `a9s-brk-usr` and password `a9s-password` are required in the next step.
-
-### <a id='create-tunnel-to-the-management-dashboard'></a> Create Tunnel to the Management Dashboard
-
-With `cf ssh`, you can create an SSH forward tunnel to the management dashboard.
-
-```bash
-$ cf ssh rabbitmq-app -L 15672:d67901c.service.dc1.a9svs:15672
-vcap@956aaf4e-6da9-4f69-4b1d-8e631a403312:~$
-```
-
-<p class='note'><strong>Note:</strong> Close the session by running <code>exit</code>.</p>
-
-### <a id='log-in-to-the-management-dashboard'></a> Log In to the Management Dashboard
-
-When the SSH tunnel is open, you can access the instance using the address `localhost:15672`.
-
-Log in to the management dashboard with your user credentials.
-![management-dashboard-login](images/management-dashboard-login.png)
-
-Upon successfully logging in, you can access the dashboard.
-![management-dashboard](images/management-dashboard.png)
-
-
-## <a id='make-a-service-instance-locally-available'></a> Make a Service Instance Locally Available
-
-You can access any of the a9s Data Services locally and connect with a local client to the service for any purpose, such as debugging. Cloud Foundry provides a smart way to create SSH forward tunnels through a pushed application. For more information about this feature, see the [Accessing Apps with SSH](https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-apps.html) section of the Cloud Foundry documentation.
-
-First, you must have an app bound to the service. To do this, see [Bind an Application to a Service Instance](#bind-an-application-to-a-service-instance).
-
-<p class='note'><strong>Note:</strong> `cf ssh` support must be enabled in the platform. Consult your administrator to ensure it is enabled.</p>
-
-### <a id='get-dashboard-url-and-credentials'></a> Get Dashboard URL and Credentials
-
-Use the hostname of the service and the user credentials obtained in [Obtain Service Instance Access Credentials](#obtain-service-instance-access-credentials) for this procedure.
-
-```bash
-$ cf env a9s-rabbitmq-app
-Getting env variables for app a9s-rabbitmq-app in org test / space test as admin...
-OK
-
-System-Provided:
-{
-  "VCAP_SERVICES": {
-   "a9s-rabbitmq": [
-    {
-      "credentials": {
-       "host": [
-        "d67901c.service.dc1.a9svs"
-       ],
-       "password": "a9s-brk-usr",
-       "username": "a9s-password"
-     },
-     "label": "a9s-rabbitmq",
-     "name": "my-rabbitmq-service",
-     "plan": "rabbitmq-cluster-small"
-    }
-   ]
-  }
-}
 ...
 ```
 
-The hostname `d67901c.service.dc1.a9svs`, username `a9s-brk-usr` and password `a9s-password` are required in the next step.
+The hostname `d67901c.service.dc1.a9svs`, username `a9s-brk-usr` and password
+`a9s-password` are required in the next step.
 
 ### <a id='create-tunnel-to-the-management-dashboard'></a> Create Tunnel to the Management Dashboard
 
-With `cf ssh`,  you can create am SSH forward tunnel to the management dashboard. Use port `9200` to connect to the a9s RabbitMQ Instance.
+With `cf ssh`,  you can create am SSH forward tunnel to the management dashboard.
+Use port `9200` to connect to the a9s RabbitMQ Instance.
 
 ```bash
 $ cf ssh a9s-rabbitmq-app -L 9200:d67901c.service.dc1.a9svs:9200
@@ -471,10 +411,12 @@ When the SSH tunnel is open, you can access the instance using the address `loca
 
 ## <a id='create-a-fork-of-a-service-instance'></a> Create a Fork of a Service Instance
 
-Forking a service instance involves creating a backup of the service instance and restoring it to a different service instance.
-
+Forking a service instance involves creating a backup of the service instance
+and restoring it to a different service instance.
+&nbsp;
 Having two service instances is a prerequisite for the process:
-```shell
+
+```bash
 $ cf s
 Getting services in org jebreuer_anynines_com / space test as jebreuer@anynines.com...
 
@@ -492,8 +434,10 @@ Additional prerequisites regarding command line tools:
 
 Do the following:
 
-1. Open the service dashboard of the service instance you want to fork, such as `rabbit1` in this example. You can find the dashboard URL by running the following command:
-```shell
+1. Open the service dashboard of the service instance you want to fork, such as
+`rabbit1` in this example. You can find the dashboard URL by running the following command:
+
+```bash
 $ cf service rabbit1
 Showing info of service rabbit1 in org jebreuer_anynines_com / space test as jebreuer@anynines.com...
 
@@ -509,25 +453,111 @@ dashboard:       https://a9s-rabbitmq-dashboard.de.a9s.eu/service-instances/950c
 [...]
 ```
 
-1. Ensure you set a encryption password for the backups using the service instance dashboard (**Change Backup Settings**). 
-1. Create a backup using the dashboard and download the backup to your local machine. The filename is similar to `racsd92baee-1522222422893`.
+1. Ensure you set a encryption password for the backups using the service instance
+dashboard (**Change Backup Settings**).
+
+1. Create a backup using the dashboard and download the backup to your local machine.
+The filename is similar to `racsd92baee-1522222422893`.
 
 1. Decrypt the backup and write its contents to a file:
-```shell
+
+```bash
 $ cat racsd92baee-1522222422893 | openssl enc -aes256 -d -pass 'pass:mytopsecretpassword' > backup_settings.json
 ```
 
-1. Create a tunnel to the admin interface of the RabbitMQ instance that will be the fork of the original instance. You need the tunnel to get the matching version of the `rabbitmqadmin` script as well as to restore the backed-up data.
-```shell
+1. Create a tunnel to the admin interface of the RabbitMQ instance which is the
+fork of the original instance. You need the tunnel to get the matching version of the
+`rabbitmqadmin` script as well as to restore the backed-up data.
+
+```bash
 $ cf ssh someapp -L 127.0.0.1:15672:racsd92baee.service.dc1.a9ssvc:15672
 ```
+
 `racsd92baee.service.dc1.a9ssvc` is the host of the rabbit2 service instance.
 
-1. Go to [http://127.0.0.1:15672/cli/](http://127.0.0.1:15672/cli/) to download the `rabbitmqadmin` tool. `rabbitmqadmin` is a Python script.
+1. Go to [http://127.0.0.1:15672/cli/](http://127.0.0.1:15672/cli/) to download the
+`rabbitmqadmin` tool. `rabbitmqadmin` is a Python script.
 
-1. Download a copy of the backup script [restore_queues.js](./restore_queues.js). Make sure to `chmod u+x` the script.
+1. Download a copy of the backup script [restore_queues.js](./restore_queues.js).
+Make sure to `chmod u+x` the script.
 
 1. Restore the backed-up queues using the restore script. For example:
-```shell
+
+```bash
 ./restore_queues.js $(which python) ~/Downloads/rabbitmqadmin 127.0.0.1 15672 a9s-brk-usr-xxxxxxxx xxxxxxxyyyyyyyyyzzzzzzzzz ./backup_settings.json
 ```
+
+## <a id="service-keys"></a> Service keys
+
+To gain access to the service manually rather than binding apps to it, you can
+use service keys.
+
+### <a id="create-a-service-key"></a> Creating a Service Key
+
+To create a key to the service instance `rabbitmq1` called `mykey`, run the
+following command:
+
+```bash
+cf create-service-key rabbitmq1 mykey
+```
+
+### <a id="listing-service-keys"></a> Listing Service Keys
+
+To list all the keys for the `rabbitmq1` service instance, run the following command:
+
+```bash
+cf service-keys rabbitmq1
+```
+
+### <a id="accessing-service-keys"></a> Accessing Service Keys
+
+To obtain the key `mykey` from the `rabbitmq1` service instance, run the following command:
+
+```bash
+cf service-key rabbitmq1 mykey
+```
+
+### <a id="deleting-service-keys"></a> Deleting Service Keys
+
+To delete the key `mykey` from the service instance `rabbitmq1`, run the following command:
+
+```bash
+cf delete-service-key rabbitmq1 mykey
+```
+
+## <a id='setup-disk-usage_alerts'></a> Setup Disk Usage Alerts
+
+Each service instance node comes with the **a9s Parachute** component. This component
+monitors *ephemeral* and *persistent* disk usage. If one of these disk usages reaches
+the configured threshold of 80%, the **a9s Parachute** stops all processes on that
+node. Once the processes gets stopped, **a9s Parachute** logs the following messages
+to its log directory:
+
+```
+Limit reached for: persistent disk
+```
+
+or
+
+```
+Limit reached for: ephemeral disk
+```
+
+### <a id='how-to-restart-stopped-instances'></a> How to restart stopped instances
+
+To restart a stopped instance, the user can use the `cf update-service` command to
+set the `max_disk_threshold` custom parameter. All values between 0 and 100 are allowed.
+Updating the instance does two things, at first the limit is set to the new value
+and the instance restarts.
+&nbsp;
+To set the value to 90% do the following:
+
+```bash
+$ cf update-service <SERVICE_NAME> -c '{"max_disk_threshold": "90"}'
+```
+
+The update takes some minutes until the service is restarted.
+
+<p class="note"><strong>Note:</strong> This is only a temporary solution. The nodes
+are stopped when the threshold is reached again. For a long term solution the
+service instance must be updated to a bigger plan.</p>

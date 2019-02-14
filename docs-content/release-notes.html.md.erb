@@ -3,6 +3,18 @@ title: a9s RabbitMQ for PCF Release Notes
 owner: Partners
 ---
 
+### <a id="2-1-0"></a> v2.1.0
+
+**Release Date:** February 14, 2019
+
+* The consul domain can now be configured.
+* The a9s BOSH DNS handler is added to make a9s service instances accessible
+  from Diego cells.
+* A backup option is added for a9s-pg.
+* a9s RabbitMQ now supports instance sharing between orgs an spaces,
+  see [documentation](https://docs.pivotal.io/pivotalcf/2-4/devguide/services/sharing-instances.html).
+* Update to Ubuntu Xenial stemcells.
+
 ## <a id="2-0-1"></a>v2.0.1
 
 **Release Date:** August 24, 2018
@@ -11,7 +23,6 @@ owner: Partners
 * Added a9s RabbitMQ v3.6 and v3.7
 * Compatible to PCF v1.12 and above
 * Added default syslog and Graphite endpoints for service instances.
-
 
 ## <a id="1-0-0"></a> v1.0.0
 
@@ -23,7 +34,6 @@ owner: Partners
 **Known issues in this release:**
 
 * Failed backups with empty configuration — The Backup Manager schedules backups even when its settings are left empty. These backups are displayed as `failed` in the Backup Manager API.
-
 
 ## <a id="0-10-1"></a> v0.10.1
 
