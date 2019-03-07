@@ -13,14 +13,14 @@ immediate backups and restore backups.
 
 ### <a id='trigger-a-backup-procedure'></a> Trigger a Backup Procedure
 
-1. Navigate to the **Status** tab of the tile and record the IP address of one
+<span>1.</span> Navigate to the **Status** tab of the tile and record the IP address of one
   of the a9s Ancillary Service instances.
   <%= image_tag("status_tab.png", width: 300) %>
 
-2. On the **Credentials** tab, find the credentials of the service under **Backup Manager Password**.
+<span>2.</span> On the **Credentials** tab, find the credentials of the service under **Backup Manager Password**.
   The username is `admin`.
 
-3. Trigger a backup on all instances by calling the **/backup\_agent/backup\_all** endpoint.
+<span>3.</span> Trigger a backup on all instances by calling the **/backup\_agent/backup\_all** endpoint.
 
   ```bash
   $ curl admin:53cr3t&commat;172.28.7.64:3000/backup\_agent/backup\_all -d {}
@@ -35,7 +35,7 @@ immediate backups and restore backups.
 
 ### <a id='trigger-a-restore-procedure'></a> Trigger a Restore Procedure
 
-1. Find the ID of the Backup and the ID of the instance by listing the instances:
+<span>1.</span> Find the ID of the Backup and the ID of the instance by listing the instances:
 
   ```bash
   $ curl admin:53cr3t&commat;172.28.7.64:3000/instances
@@ -64,7 +64,7 @@ immediate backups and restore backups.
   the instance with the instance_id `1c16933a-892f-4fe0-b968-ea0bf90246c9`.
   This ID corresponds to the service instance GUID from PAS.
 
-2. Restore the backup by calling the **/backup\_agent/restores**
+<span>2.</span> Restore the backup by calling the **/backup\_agent/restores**
   endpoint with the backup\_id and instance\_id as data:
 
   ```bash
@@ -95,14 +95,14 @@ by the a9s Service Broker and a9s Deployer.</p>
 
 ### <a id='a9s-pg-backup-trigger-a-backup'></a> Trigger a Backup
 
-1. Curl the `backup_agent/backup` API endpoint of the a9s Backup Manager.
+<span>1.</span> Curl the `backup_agent/backup` API endpoint of the a9s Backup Manager.
 
   ```bash
   $ curl http://backup:53cr3t&commat;172.28.7.64:3000/backup_agent/backup -d "instance_guid=a9s-pg"
   {"message":"job to backup is queued"}
   ```
 
-2. Get the state of the backup by curling the `instances/a9s-pg` endpoint
+<span>2.</span> Get the state of the backup by curling the `instances/a9s-pg` endpoint
 of the backup manager.
 
   ```bash

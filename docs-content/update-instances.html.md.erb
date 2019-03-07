@@ -14,14 +14,14 @@ this errand.</p>
 BOSH Director. For more information, see <a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare"
 target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
 
-1. SSH into the Ops Manager VM:
+<span>1.</span> SSH into the Ops Manager VM:
 
   ```bash
   $ ssh ubuntu@OPS-MANAGER-FQDN
   Password: ***********
   ```
 
-2. Log in to the BOSH Director.
+<span>2.</span> Log in to the BOSH Director.
 
   ```bash
   $ bosh login
@@ -30,7 +30,7 @@ target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
   Logged in as 'director'
   ```
 
-3. Run `bosh deployments` and record the name of the a9s RabbitMQ for PCF
+<span>3.</span> Run `bosh deployments` and record the name of the a9s RabbitMQ for PCF
   deployment from the **Name** column:
 
   ```bash
@@ -46,7 +46,7 @@ target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
                                           uaa/52.7
   ```
 
-4. Force the update for all existing a9s RabbitMQ for PCF instances.
+<span>4.</span> Force the update for all existing a9s RabbitMQ for PCF instances.
 
   ```bash
   $ bosh -d a9s-rabbitmq-0476d61a219a39bf0e1b run-errand deployment-updater
