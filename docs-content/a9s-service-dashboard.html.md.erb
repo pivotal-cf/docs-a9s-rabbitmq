@@ -85,8 +85,7 @@ restore takes some time.</p>
 
 ## <a id="set-encryption-key"></a> Set an Encryption Key
 
-<p class="note"><strong>Note:</strong> To be able to download a backup first you
-have to set an encryption key. Otherwise you can't download backups.</p>
+<p class="note"><strong>Note:</strong> You must set an encryption key in order to be able to download backups.</p>
 
 1. Open the Service Dashboard for the appropriate service instance.
 
@@ -263,7 +262,7 @@ curl --cookie test.cookie --cookie-jar test.cookie --location --insecure --heade
 }
 ```
 
-#### <a id=''>api-trigger-backup</a> POST /service-instances/:guid/backups
+#### <a id='api-trigger-backup'></a> POST /service-instances/:guid/backups
 
 Trigger a backup process on a given service instance.
 

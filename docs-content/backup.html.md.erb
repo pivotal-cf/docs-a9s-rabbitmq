@@ -14,7 +14,7 @@ immediate backups and restore backups.
 ### <a id='trigger-a-backup-procedure'></a> Trigger a Backup Procedure
 
 <span>1.</span> Navigate to the **Status** tab of the tile and record the IP address of one
-  of the a9s Ancillary Service instances.
+  of the a9s Ancillary Service instances.<br>
   <%= image_tag("status_tab.png", width: 300) %>
 
 <span>2.</span> On the **Credentials** tab, find the credentials of the service under **Backup Manager Password**.
@@ -60,7 +60,7 @@ immediate backups and restore backups.
   }
   ```
 
-  In the example backups and restores that have been performed for
+  The example above shows backups and restores that have been performed for
   the instance with the instance_id `1c16933a-892f-4fe0-b968-ea0bf90246c9`.
   This ID corresponds to the service instance GUID from PAS.
 
@@ -78,7 +78,7 @@ the backup of service instances can be handled.
 
 ### <a id='a9s-pg-backup-limitations'></a> Limitations
 
-Because of the reason that `a9s-pg` is the main database for the a9s Backup
+Because `a9s-pg` is the main database for the a9s Backup
 Manager and all services around a9s Elasticsearch for PCF the consistency of
 the backup information of a9s-pg is not guaranteed:
 
