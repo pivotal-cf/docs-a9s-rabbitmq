@@ -1,5 +1,5 @@
 ---
-title: Backup and Restore
+title: Backing Up and Restoring
 owner: Partners
 ---
 
@@ -90,7 +90,7 @@ the backup information of a9s-pg is not guaranteed:
 
 <p class="note"><strong>Note:</strong> Be aware that restoring the a9s-pg to a
 previous point in time means you possibly loose information about deployed
-instances which results in ghost instances that can't not any longer be handled
+instances which results in ghost instances that can no longer be handled
 by the a9s Service Broker and a9s Deployer.</p>
 
 ### <a id='a9s-pg-backup-trigger-a-backup'></a> Trigger a Backup
@@ -171,7 +171,7 @@ $curl admin:53cr3t&commat;172.28.7.64:3000/backup_agent/restores -d "backup_id=1
 ```
 
 During the restore of the a9s-pg the a9s Backup Manager is not available and
-can't be used to see the state of the restore process, see also
+cannot be used to see the state of the restore process, see also
 [Limitations](backup.html#limitations).
 You can watch the backup-agent logs of the a9s-pg master node to see the state.
 On the VM itself you can use the following command:
@@ -189,4 +189,3 @@ $ tail -f /var/vcap/sys/log/backup-agent/production.log
 I, [2018-11-20T12:13:00.939338 #31554]  INFO -- : success
 172.28.19.51 - oy6Xh45byt4IMhMmlLSV9s_WCdKx9-gT [20/Nov/2018:12:13:02 +0000] "POST /v1/order HTTP/1.1" 200 13 0.7154
 ```
-

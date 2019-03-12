@@ -7,24 +7,24 @@ This topic provides usage guidance for SSL/TLS plans of a9s Data Services.
 
 ## <a id='providing-your-own-key'></a> Providing Your Own TLS Key
 
-By default a self signed certificate is created, however when creating and
+By default a self signed certificate is created, however, when creating and
 updating a data service instance. It is possible to provide your own key,
 certificate and CA certificate. The certificate must be a wildcard certificate
-for subdomains under the service domain & node domain.
+for subdomains under the service domain and node domain.
 
-### Example node domain
+### Example Node Domain
 
 ```
 *.node.dc1.a9s-rabbitmq-consul
 ```
 
-### Example service domain
+### Example Service Domain
 
 ```
 *.service.dc1.a9s-rabbitmq-consul
 ```
 
-### Parameters to provide
+### Parameters to Provide
 
 The following should be provided via the `-c` of a `cf create-service` or `cf update-service`
 command an escaped as JSON string:
@@ -35,9 +35,9 @@ command an escaped as JSON string:
 | wildcrt | The certificate for your service instance |
 | wildkey | The private key to use with the certificate |
 
-## <a id='using-ssl-in-your-apps'></a> Using TLS in Your Apps
+## <a id='using-ssl-in-your-apps'></a> Use TLS in Your Apps
 
-To use an a9s Data Service via TLS you will need to trust the certificate. One
+To use an a9s Data Service via TLS, you need to trust the certificate. One
 way to achieve this is to add the CA Certificate to the trusted CAs of your app.
 &nbsp;
 You will find a variable called `cacrt` in the `credentials` hash provided to
@@ -47,12 +47,12 @@ For some organisations, such as those already operating internal CAs, it might
 be best to distribute a CA via a custom buildpack in conjunction with [providing
 your own key](ssl-plans.html#providing-your-own-key).
 
-### RabbitMQ Go example
+### RabbitMQ Go Example
 
 Here is a [RabbitMQ example](https://github.com/anynines/a9s-rabbitmq-app/blob/44b336e8c217e91fe4730b09ad102e97734fa8df/main.go#L156)
 of how you might use `cacrt` in your apps.
 
-### RabbitMQ Ruby example
+### RabbitMQ Ruby Example
 
 ```ruby
 require 'json'

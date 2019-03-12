@@ -5,7 +5,7 @@
 /**
  * This script will restore the queues found in a export file created
  * with the rabitmqadmin script on a given rabbitmq instance.
- * Queues with a name prefixed with "amq." can't be restored.
+ * Queues with a name prefixed with "amq." cannot be restored.
  */
 
 const fs = require('fs')
