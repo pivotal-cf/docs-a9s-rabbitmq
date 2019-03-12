@@ -36,7 +36,7 @@ To install a9s RabbitMQ for PCF, do the following:
 After you install the a9s RabbitMQ for PCF, it is available in the list of
 Marketplace services. For more information, see [Using a9s RabbitMQ for PCF](./using.html).
 
-### <a id="azs"></a> Assign AZs and Networks
+## <a id="azs"></a> Assign AZs and Networks
 
 Use **Assign AZs and Networks** to configure the location of service component
 and service instance jobs. Configure your network to balance cluster jobs between
@@ -44,7 +44,7 @@ as many AZs as possible.
 
 <%= image_tag("assign_azs_and_networks.png") %>
 
-### <a id="plan-configuration"></a> Plan Configuration
+## <a id="plan-configuration"></a> Plan Configuration
 
 1. Define the AZ placement where the service instances are deployed into.
 
@@ -55,7 +55,7 @@ Disk size and VM size (CPUs and memory) can be configured independently to creat
 your desired plans. However, consider that moving from a larger disk to a smaller
 disk is likely to fail.
 
-#### <a id='min-sys-reqs'></a> Minimum System Requirements
+### <a id='min-sys-reqs'></a> Minimum System Requirements
 
 | Resource | Size |
 |----------|------|
@@ -70,12 +70,12 @@ disk is likely to fail.
 
 <%= image_tag("plan_configuration.png") %>
 
-### <a id="backup_configuration"></a> Backup Configuration
+## <a id="backup_configuration"></a> Backup Configuration
 
 Use **Backup Configuration** to configure the backup endpoints. You can choose
 between a S3 compliant endpoint and an Azure blob store.
 
-#### Configure S3 Compliant Backup Storage
+### Configure S3 Compliant Backup Storage
 
 <%= image_tag("backup_configuration_s3.png") %>
 
@@ -133,13 +133,15 @@ between a S3 compliant endpoint and an Azure blob store.
   </tr>
 </table>
 
-#### Configure Azure Backup Storage
+### Configure Azure Backup Storage
 
 <%= image_tag("backup_configuration_azure.png") %>
 
 <table class="nice">
+  <tr>
   <th>Field</th>
   <th>Description</th>
+  </tr>
   <tr>
     <td>Minimum Backups per Instance</td>
     <td>The minimum number of backups for any instance before the oldest backup
@@ -182,7 +184,7 @@ between a S3 compliant endpoint and an Azure blob store.
   </tr>
 </table>
 
-### <a id="service_configuration"></a>Service Configuration
+## <a id="service_configuration"></a>Service Configuration
 
 On the Service Configuration page, you can set default endpoints for Graphite and
 syslog. For example, you might use `logs.papertrail.com:44456` for the syslog endpoint.
@@ -190,13 +192,14 @@ syslog. For example, you might use `logs.papertrail.com:44456` for the syslog en
 <%= image_tag("service_configuration.png") %>
 
 <table class="nice">
+  <tr>
   <th>Field</th>
   <th>Description</th>
   </tr>
   <tr>
     <td>Allow Block Automatic Updates.</td>
     <td>Allow or forbid the Service Instance user to block automatic updates.
-        If it`s not allowed the dashboard doesn't show this information.</td>
+        If it is not allowed the dashboard does not show this information.</td>
   </tr>
   <tr>
     <td>Allow Backup Download</td>
@@ -236,15 +239,16 @@ syslog. For example, you might use `logs.papertrail.com:44456` for the syslog en
 <p class="note"><strong>Note:</strong> The syslog and Graphite endpoints cannot
 be deleted or updated by the end user.</p>
 
-### <a id='management'></a> Management Cluster
+## <a id='management'></a> Management Cluster
 
 All settings on this page are related to the components of the service offering
 and not to the service instances.
 
 <%= image_tag("management_cluster.png") %>
 
-#### <a id='dns-domain'></a> DNS Domain
+### <a id='dns-domain'></a> DNS Domain
 <table class="nice">
+  <tr>
   <th>Field</th>
   <th>Description</th>
   </tr>
@@ -253,10 +257,10 @@ and not to the service instances.
     <td>The DNS domain for this installation. All instances are created under
         this name. See <a href="name-resolving.html">Name resolving with consul</a>
         for more information.</td>
-  <tr>
+  </tr>
 </table>
 
-#### <a id='syslog-forwarding'></a> Syslog Forwarding
+### <a id='syslog-forwarding'></a> Syslog Forwarding
 When syslog forwarding is enabled all logs are forwarded to the syslog endpoint
 you configure here.
 
@@ -294,13 +298,13 @@ you configure here.
   </tr>
 </table>
 
-#### <a id='enable_bosh_dns_handler'></a> Enable BOSH DNS Handler
+### <a id='enable_bosh_dns_handler'></a> Enable BOSH DNS Handler
 
 Enable BOSH DNS Handler for name resolving a9s services within the diego cells.
 Read the installation instructions carefully before you enable the feature you
 can find <a href="name-resolving.html#name-resolving-with-a9s-bosh-dns-handler">here</a>.
 
-### <a id='errands'></a> Configure Errands
+## <a id='errands'></a> Configure Errands
 
 Use **Errands** to configure the lifecycle errands that run when you install or
 uninstall a9s RabbitMQ for PCF. The list below describes each errand. For more
@@ -308,7 +312,7 @@ information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiled
 
 <%= image_tag("errands.png") %>
 
-#### <a id='post-deploy'></a> Post-Deploy Errands
+### <a id='post-deploy'></a> Post-Deploy Errands
 
 * **Run Template Uploader**: This errand is required to configure generic components
   included in a9s RabbitMQ for PCF with RabbitMQ configurations. Disabling this errand
@@ -325,7 +329,7 @@ information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiled
   a9s RabbitMQ for PCF installation to ensure that it is configured properly.
   These tests may take a while, probably over 30 minutes.
 
-#### <a id='pre-delete'></a> Pre-Delete Errands
+### <a id='pre-delete'></a> Pre-Delete Errands
 
  * **Delete all a9s RabbitMQ instances**:
   This errand deletes all a9s RabbitMQ instances which were created with
@@ -340,7 +344,7 @@ information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiled
   This will unregister the a9s RabbitMQ for PCF service broker in Pivotal
   Application Service. This errand removes the a9s RabbitMQ service from the Marketplace.
 
-### <a id='resource-config'></a> Configure Resources
+## <a id='resource-config'></a> Configure Resources
 
 You can configure the dimensions of the VMs that host the a9s RabbitMQ for PCF
 components. This configuration does not cover the dedicated RabbitMQ instances

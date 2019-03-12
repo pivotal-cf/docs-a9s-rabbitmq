@@ -333,7 +333,7 @@ section of the Cloud Foundry documentation.
 First, you must have an app bound to the service. To do this, see
 [Bind an App to a Service Instance](#bind-an-app-to-a-service-instance).
 
-<p class='note'><strong>Note:</strong> `cf ssh` support must be enabled in the
+<p class='note'><strong>Note:</strong> <code>cf ssh</code> support must be enabled in the
 platform. Consult your administrator to ensure it is enabled.</p>
 
 ### <a id='get-dashboard-url-and-credentials'></a> Get Dashboard URL and Credentials
@@ -394,7 +394,8 @@ System-Provided:
 The hostname `d67901c.service.dc1.a9svs`, username `a9s-brk-usr` and password
 `a9s-password` are required in the next step.
 
-### <a id='create-tunnel-to-the-management-dashboard'></a> Create Tunnel to the Management Dashboard
+### <a id='create-tunnel-to-the-management-dashboard'></a> Create Tunnel to the
+Management Dashboard
 
 With `cf ssh`,  you can create am SSH forward tunnel to the management dashboard.
 Use port `9200` to connect to the a9s RabbitMQ Instance.
@@ -487,12 +488,12 @@ Make sure to `chmod u+x` the script.
 ./restore_queues.js $(which python) ~/Downloads/rabbitmqadmin 127.0.0.1 15672 a9s-brk-usr-xxxxxxxx xxxxxxxyyyyyyyyyzzzzzzzzz ./backup_settings.json
 ```
 
-## <a id="service-keys"></a> Service keys
+## <a id="service-keys"></a> Service Keys
 
 To gain access to the service manually rather than binding apps to it, you can
 use service keys.
 
-### <a id="create-a-service-key"></a> Creating a Service Key
+### <a id="create-a-service-key"></a> Create a Service Key
 
 To create a key to the service instance `rabbitmq1` called `mykey`, run the
 following command:
@@ -501,7 +502,7 @@ following command:
 cf create-service-key rabbitmq1 mykey
 ```
 
-### <a id="listing-service-keys"></a> Listing Service Keys
+### <a id="listing-service-keys"></a> List Service Keys
 
 To list all the keys for the `rabbitmq1` service instance, run the following command:
 
@@ -509,7 +510,7 @@ To list all the keys for the `rabbitmq1` service instance, run the following com
 cf service-keys rabbitmq1
 ```
 
-### <a id="accessing-service-keys"></a> Accessing Service Keys
+### <a id="accessing-service-keys"></a> Access Service Keys
 
 To obtain the key `mykey` from the `rabbitmq1` service instance, run the following command:
 
@@ -517,7 +518,7 @@ To obtain the key `mykey` from the `rabbitmq1` service instance, run the followi
 cf service-key rabbitmq1 mykey
 ```
 
-### <a id="deleting-service-keys"></a> Deleting Service Keys
+### <a id="deleting-service-keys"></a> Delete Service Keys
 
 To delete the key `mykey` from the service instance `rabbitmq1`, run the following command:
 
@@ -525,7 +526,7 @@ To delete the key `mykey` from the service instance `rabbitmq1`, run the followi
 cf delete-service-key rabbitmq1 mykey
 ```
 
-## <a id='setup-disk-usage_alerts'></a> Setup Disk Usage Alerts
+## <a id='setup-disk-usage_alerts'></a> Set Up Disk Usage Alerts
 
 Each service instance node comes with the **a9s Parachute** component. This component
 monitors *ephemeral* and *persistent* disk usage. If one of these disk usages reaches
