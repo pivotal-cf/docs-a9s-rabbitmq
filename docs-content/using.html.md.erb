@@ -427,6 +427,7 @@ rabbit2   a9s-rabbitmq37   rabbitmq-cluster-small                create succeede
 ```
 
 Additional prerequisites regarding command line tools:
+
 - BASH (some shell)
 - CAT
 - OpenSSL
@@ -454,19 +455,19 @@ dashboard:       https://a9s-rabbitmq-dashboard.de.a9s.eu/service-instances/950c
 [...]
 ```
 
-1. Ensure you set a encryption password for the backups using the service instance
+<span>2.</span> Ensure you set a encryption password for the backups using the service instance
 dashboard (**Change Backup Settings**).
 
-1. Create a backup using the dashboard and download the backup to your local machine.
+<span>3.</span> Create a backup using the dashboard and download the backup to your local machine.
 The filename is similar to `racsd92baee-1522222422893`.
 
-1. Decrypt the backup and write its contents to a file:
+<span>4.</span> Decrypt the backup and write its contents to a file:
 
 ```bash
 $ cat racsd92baee-1522222422893 | openssl enc -aes256 -d -pass 'pass:mytopsecretpassword' > backup_settings.json
 ```
 
-1. Create a tunnel to the admin interface of the RabbitMQ instance which is the
+<span>5.</span> Create a tunnel to the admin interface of the RabbitMQ instance which is the
 fork of the original instance. You need the tunnel to get the matching version of the
 `rabbitmqadmin` script as well as to restore the backed-up data.
 
@@ -476,13 +477,13 @@ $ cf ssh someapp -L 127.0.0.1:15672:racsd92baee.service.dc1.a9ssvc:15672
 
 `racsd92baee.service.dc1.a9ssvc` is the host of the rabbit2 service instance.
 
-1. Go to [http://127.0.0.1:15672/cli/](http://127.0.0.1:15672/cli/) to download the
+<span>6.</span> Go to [http://127.0.0.1:15672/cli/](http://127.0.0.1:15672/cli/) to download the
 `rabbitmqadmin` tool. `rabbitmqadmin` is a Python script.
 
-1. Download a copy of the backup script [restore_queues.js](./restore_queues.js).
+<span>7.</span> Download a copy of the backup script [restore_queues.js](./restore_queues.js).
 Make sure to `chmod u+x` the script.
 
-1. Restore the backed-up queues using the restore script. For example:
+<span>8.</span> Restore the backed-up queues using the restore script. For example:
 
 ```bash
 ./restore_queues.js $(which python) ~/Downloads/rabbitmqadmin 127.0.0.1 15672 a9s-brk-usr-xxxxxxxx xxxxxxxyyyyyyyyyzzzzzzzzz ./backup_settings.json
