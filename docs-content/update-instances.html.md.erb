@@ -3,7 +3,7 @@ title: Updating Instances
 owner: Partners
 ---
 
-After updating the a9s RabbitMQ for PCF tile, run the Deployment Updater errand
+After updating the a9s RabbitMQ for Pivotal Platform tile, run the Deployment Updater errand
 to update all provisioned service instances to the new service and stemcell versions.
 
 <p class="note"><strong>Note:</strong> anynines recommends running the
@@ -30,7 +30,7 @@ target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
   Logged in as 'director'
   ```
 
-<span>3.</span> Run `bosh deployments` and record the name of the a9s RabbitMQ for PCF
+<span>3.</span> Run `bosh deployments` and record the name of the a9s RabbitMQ for Pivotal Platform
   deployment from the **Name** column:
 
   ```bash
@@ -46,7 +46,7 @@ target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
                                           uaa/52.7
   ```
 
-<span>4.</span> Force the update for all existing a9s RabbitMQ for PCF instances.
+<span>4.</span> Force the update for all existing a9s RabbitMQ for Pivotal Platform instances.
 
   ```bash
   $ bosh -d a9s-rabbitmq-0476d61a219a39bf0e1b run-errand deployment-updater

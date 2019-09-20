@@ -1,23 +1,23 @@
 ---
-title: Installing and Configuring a9s RabbitMQ for PCF
+title: Installing and Configuring a9s RabbitMQ for Pivotal Platform
 owner: Partners
 ---
 
 This topic describes how to install and configure a9s RabbitMQ for Pivotal Cloud
-Foundry (PCF).
+Foundry (Pivotal Platform).
 
 
-## <a id='install'></a> Install a9s RabbitMQ for PCF
+## <a id='install'></a> Install a9s RabbitMQ for Pivotal Platform
 
-To install a9s RabbitMQ for PCF, do the following:
+To install a9s RabbitMQ for Pivotal Platform, do the following:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/a9s-rabbitmq).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**
   to upload the product file.
 
-1. Click **Add** or **+** (depending on the PCF version) next to the uploaded
-  a9s RabbitMQ for PCF tile in the Ops Manager **Available Products** view to
+1. Click **Add** or **+** (depending on the Pivotal Platform version) next to the uploaded
+  a9s RabbitMQ for Pivotal Platform tile in the Ops Manager **Available Products** view to
   add it to your staging area.
 
 1. Click the new tile, then click **Settings** to review the configuration
@@ -33,8 +33,8 @@ To install a9s RabbitMQ for PCF, do the following:
 
 1. Click **Apply Changes** to deploy the service.
 
-After you install the a9s RabbitMQ for PCF, it is available in the list of
-Marketplace services. For more information, see [Using a9s RabbitMQ for PCF](./using.html).
+After you install the a9s RabbitMQ for Pivotal Platform, it is available in the list of
+Marketplace services. For more information, see [Using a9s RabbitMQ for Pivotal Platform](./using.html).
 
 ## <a id="azs"></a> Assign AZs and Networks
 
@@ -297,7 +297,7 @@ can find <a href="name-resolving.html#name-resolving-with-a9s-bosh-dns-handler">
 ## <a id='errands'></a> Configure Errands
 
 Use **Errands** to configure the lifecycle errands that run when you install or
-uninstall a9s RabbitMQ for PCF. The list below describes each errand. For more
+uninstall a9s RabbitMQ for Pivotal Platform. The list below describes each errand. For more
 information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("errands.png") %>
@@ -305,25 +305,25 @@ information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 ### <a id='post-deploy'></a> Post-Deploy Errands
 
 * **Run Template Uploader**: This errand is required to configure generic components
-  included in a9s RabbitMQ for PCF with RabbitMQ configurations. Disabling this errand
+  included in a9s RabbitMQ for Pivotal Platform with RabbitMQ configurations. Disabling this errand
   may speed up the deployment of all tiles.
   &nbsp;
   <p class="note"><strong>Note:</strong> To ensure your configuration remains
   up-to-date, disable this errand only when necessary.</p>
   &nbsp;
 
-* **Run Broker Registrar**: This errand registers the a9s RabbitMQ for PCF service
+* **Run Broker Registrar**: This errand registers the a9s RabbitMQ for Pivotal Platform service
   broker with the Elastic Runtime. This makes the service available in the Marketplace.
 
 * **Run Smoke Tests**: This errand runs a series of basic tests against your
-  a9s RabbitMQ for PCF installation to ensure that it is configured properly.
+  a9s RabbitMQ for Pivotal Platform installation to ensure that it is configured properly.
   These tests may take a while, probably over 30 minutes.
 
 ### <a id='pre-delete'></a> Pre-Delete Errands
 
  * **Delete all a9s RabbitMQ instances**:
   This errand deletes all a9s RabbitMQ instances which were created with
-  `cf create-service` by PCF end users.
+  `cf create-service` by Pivotal Platform end users.
   &nbsp;
   <p class="note warning"><strong>WARNING</strong>: This is an absolutely
   destructive task and cannot be undone. All VMs of the service instances will be
@@ -331,14 +331,14 @@ information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
   service keys are existing, The errand fails.</p>
   &nbsp;
  * **Run Broker Deregistrar**:
-  This will unregister the a9s RabbitMQ for PCF service broker in Pivotal
+  This will unregister the a9s RabbitMQ for Pivotal Platform service broker in Pivotal
   Application Service. This errand removes the a9s RabbitMQ service from the Marketplace.
 
 ## <a id='resource-config'></a> Configure Resources
 
-You can configure the dimensions of the VMs that host the a9s RabbitMQ for PCF
+You can configure the dimensions of the VMs that host the a9s RabbitMQ for Pivotal Platform
 components. This configuration does not cover the dedicated RabbitMQ instances
-that run on VMs provided by the a9s BOSH tile for PCF. For more information,
+that run on VMs provided by the a9s BOSH tile for Pivotal Platform. For more information,
 see [Configure Service Plan VMs](installing.html#plan-configuration).
 
 <p class="note"><strong>Note:</strong> anynines recommends using a VM type of
